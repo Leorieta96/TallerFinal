@@ -1,13 +1,13 @@
 package modelo;
 
 public class DetallePedidoProveedor {
-    private PedidoProveedor codPedProv;
-    private Material codMaterial;
+    private Long codPedProv;
+    private Long codMaterial;
     private String descripcion;
     private int cantidad;
     private double subtotal;
 
-    public DetallePedidoProveedor(PedidoProveedor codPedProv, Material codMaterial, String descripcion, int cantidad, double subtotal) {
+    public DetallePedidoProveedor(Long codPedProv, Long codMaterial, String descripcion, int cantidad, double subtotal) {
         this.codPedProv = codPedProv;
         this.codMaterial = codMaterial;
         this.descripcion = descripcion;
@@ -15,19 +15,19 @@ public class DetallePedidoProveedor {
         this.subtotal = subtotal;
     }
 
-    public PedidoProveedor getCodPedProv() {
+    public Long getCodPedProv() {
         return codPedProv;
     }
 
-    public void setCodPedProv(PedidoProveedor codPedProv) {
+    public void setCodPedProv(Long codPedProv) {
         this.codPedProv = codPedProv;
     }
 
-    public Material getCodMaterial() {
+    public Long getCodMaterial() {
         return codMaterial;
     }
 
-    public void setCodMaterial(Material codMaterial) {
+    public void setCodMaterial(Long codMaterial) {
         this.codMaterial = codMaterial;
     }
 
