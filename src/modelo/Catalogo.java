@@ -5,9 +5,9 @@ import java.sql.Date;
 public class Catalogo {
     private Long codCatalogo;
     private Date fecha;
-    private Proveedor cuit;
+    private Long cuit;
 
-    public Catalogo(Long codCatalogo, Date fecha, Proveedor cuit) {
+    public Catalogo(Long codCatalogo, Date fecha, Long cuit) {
         this.codCatalogo = codCatalogo;
         this.fecha = fecha;
         this.cuit = cuit;
@@ -29,11 +29,11 @@ public class Catalogo {
         this.fecha = fecha;
     }
 
-    public Proveedor getCuit() {
+    public Long getCuit() {
         return cuit;
     }
 
-    public void setCuit(Proveedor cuit) {
+    public void setCuit(Long cuit) {
         this.cuit = cuit;
     }
 

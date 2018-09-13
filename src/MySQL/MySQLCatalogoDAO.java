@@ -1,8 +1,13 @@
 package MySQL;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import dao.CatalogoDAO;
+import dao.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Catalogo;
 
@@ -21,7 +26,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
     }
 
     @Override
-    public void insertar(Catalogo a) {
+    public void insertar(Catalogo a) throws DAOException{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
@@ -32,22 +37,40 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
             {   
                 System.out.println("Puede q no se haya guardado");
             }
-        } catch (Exception e) {
-             System.out.println("Error" + e);
+        } catch (SQLException ex) {
+             throw new DAOException("Error en SQL", ex);
         }finally{
             if(stat != null){
                 try {
                     stat.close();
-                } catch (Exception e) {
-                    System.out.println("Error" + e);
+                } catch (SQLException ex) {
+                    throw new DAOException("Error en SQL", ex);
                 }
             } 
         }
     }
 
     @Override
-    public void eliminar(Catalogo a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Catalogo a) throws DAOException{
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setLong(1, a.getCodCatalogo());
+            if(stat.executeUpdate() == 0){
+                System.out.println("Puede que no se haya guardado");
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Error delete", ex);
+        }finally{
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                        throw new DAOException("Error delete", ex);
+
+                }
+            }
+        }
     }
 
     @Override
@@ -55,13 +78,81 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Catalogo> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Catalogo convertir (ResultSet rs) throws SQLException{
+       Catalogo catalogo = new Catalogo(rs.getLong("codCatalogo"), rs.getDate("fecha"), rs.getLong("cuit"));
+        return catalogo;
     }
+    @Override
+    public List<Catalogo> obtenerTodos() throws DAOException{
+        PreparedStatement stat = null;
+        ResultSet rs= null;
+        List<Catalogo> catalogos = new ArrayList<>();
+        
+        try {
+            stat = conn.prepareStatement(GETALL);
+            rs = stat.executeQuery();
+            while(rs.next()){
+                catalogos.add(convertir(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return catalogos;
+    }
+    
 
     @Override
-    public Catalogo obtener(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Catalogo obtener(Long id) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs= null;
+        Catalogo c = null;
+        try {
+            stat = conn.prepareStatement(GETONE);
+            stat.setLong(1, id);
+            rs = stat.executeQuery();
+            if(rs.next()){
+                c = convertir(rs);
+            }else{
+                throw new DAOException("No se ha encntrado ese registro");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return c;
+    }
+    
+    public static void main(String[] args) {
+        
     }
 }
+
