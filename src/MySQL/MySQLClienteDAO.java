@@ -2,8 +2,13 @@ package MySQL;
 
 import java.sql.PreparedStatement;
 import dao.ClienteDAO;
+import dao.DAOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import modelo.Catalogo;
 import modelo.Cliente;
 
 public class MySQLClienteDAO implements ClienteDAO{
@@ -47,22 +52,103 @@ public class MySQLClienteDAO implements ClienteDAO{
     }
 
     @Override
-    public void eliminar(Cliente a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Cliente a) throws DAOException{
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setLong(1, a.getDNI());
+            if(stat.executeUpdate() == 0){
+                System.out.println("Puede que no se haya guardado");
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Error delete", ex);
+        }finally{
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                        throw new DAOException("Error delete", ex);
+
+                }
+            }
+        }
     }
 
     @Override
     public void modificar(Cliente a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ;
+    }
+    
+    private Cliente convertir (ResultSet rs) throws SQLException{
+       Cliente cliente = new Cliente(rs.getLong("DNI"), rs.getString("nomCliente"), rs.getInt("telCliente"), rs.getString("irCliente"), rs.getString("emailCliente"));
+        return cliente;
+    }
+    
+    @Override
+    public List<Cliente> obtenerTodos() throws DAOException{
+        PreparedStatement stat = null;
+        ResultSet rs= null;
+        List<Cliente> clientes = new ArrayList<>();
+        
+        try {
+            stat = conn.prepareStatement(GETALL);
+            rs = stat.executeQuery();
+            while(rs.next()){
+                clientes.add(convertir(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return clientes;
     }
 
     @Override
-    public List<Cliente> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Cliente obtener(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }    
+    public Cliente obtener(Long id) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs= null;
+        Cliente c = null;
+        try {
+            stat = conn.prepareStatement(GETONE);
+            stat.setLong(1, id);
+            rs = stat.executeQuery();
+            if(rs.next()){
+                c = convertir(rs);
+            }else{
+                throw new DAOException("No se ha encntrado ese registro");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if(stat != null){
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return c;
+    }  
 }

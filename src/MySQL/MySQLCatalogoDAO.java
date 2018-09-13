@@ -150,9 +150,5 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         }
         return c;
     }
-    
-    public static void main(String[] args) {
-        
-    }
 }
 
