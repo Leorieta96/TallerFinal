@@ -1,6 +1,5 @@
 package MySQL;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import dao.CatalogoDAO;
 import dao.DAOException;
 import java.sql.Connection;

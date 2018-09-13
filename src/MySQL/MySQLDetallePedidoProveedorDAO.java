@@ -6,6 +6,8 @@ import modelo.DetallePedidoProveedor;
 
 public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO{
 
+    
+    
     @Override
     public void insertar(DetallePedidoProveedor a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
