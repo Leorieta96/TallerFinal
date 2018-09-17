@@ -3,6 +3,8 @@ package MySQL;
 import dao.CatalogoDAO;
 import dao.DAOException;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +14,11 @@ import modelo.Catalogo;
 
 public class MySQLCatalogoDAO implements CatalogoDAO{
     
-    final String INSERT = "INSERT INTO catalogo (codCatalogo, fecha, cuit) VALUES (?, ?, ?)";
+    final String INSERT = "INSERT INTO catalogo (idCatalogo, fecha, cuit) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE catalogo SET fecha = ?";
-    final String DELETE = "DELETE FROM catalogo WHERE codCatalogo = ?";
-    final String GETALL = "SELECT codCatalogo, fecha, cuit";
-    final String GETONE = "SELECT codCatalogo, fecha, cuit WHERE codCatalogo = ?";
+    final String DELETE = "DELETE FROM catalogo WHERE idCatalogo = ?";
+    final String GETALL = "SELECT *  FROM `catalogo`";
+    final String GETONE = "SELECT *  FROM `catalogo` WHERE `idCatalogo` = ?";
         
     private Connection conn;
     
@@ -55,6 +57,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         try {
             stat = conn.prepareStatement(DELETE);
             stat.setLong(1, a.getIdCatalogo());
+            //stat.setLong(1, id);
             if(stat.executeUpdate() == 0){
                 System.out.println("Puede que no se haya guardado");
             }
@@ -78,7 +81,8 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
     }
 
     private Catalogo convertir (ResultSet rs) throws SQLException{
-       Catalogo catalogo = new Catalogo(rs.getLong("codCatalogo"), rs.getDate("fecha"), rs.getLong("cuit"));
+        Long id = (long) rs.getInt("idCatalogo");
+        Catalogo catalogo = new Catalogo(id, rs.getDate("fecha"), (long)rs.getInt("cuit"));
         return catalogo;
     }
     @Override
@@ -86,7 +90,6 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         PreparedStatement stat = null;
         ResultSet rs= null;
         List<Catalogo> catalogos = new ArrayList<>();
-        
         try {
             stat = conn.prepareStatement(GETALL);
             rs = stat.executeQuery();
@@ -94,7 +97,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
                 catalogos.add(convertir(rs));
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro SQL");
+            throw new DAOException("Error SQL");
         }finally{
             if(rs != null){
                 try {
@@ -130,7 +133,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
                 throw new DAOException("No se ha encntrado ese registro");
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro SQL");
+            throw new DAOException("Error SQL");
         }finally{
             if(rs != null){
                 try {
@@ -149,5 +152,25 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         }
         return c;
     }
+ 
+//    public static void main(String[] args) throws SQLException, DAOException{
+//        Connection conn = null;
+//        try {
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/siac", "root", "");
+//            CatalogoDAO dao = new MySQLCatalogoDAO(conn);
+//            Catalogo c = new Catalogo(16355L, new Date(1996,12,03), 215552L);
+//            //dao.insertar(c);
+//            dao.eliminar(c);
+//            List<Catalogo> catalogo = dao.obtenerTodos();
+//            for(Catalogo a: catalogo){
+//                System.out.println(catalogo.toString());
+//            }
+//        } finally {
+//            if(conn != null){
+//                conn.close();
+//            }
+//        }
+//        
+//    }
+//    
 }
-
