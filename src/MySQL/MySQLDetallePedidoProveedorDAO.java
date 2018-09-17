@@ -12,11 +12,11 @@ import modelo.DetallePedidoProveedor;
 
 public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO{
 
-    final String INSERT = "INSERT INTO detallePedidoProveedor (codPedProv, codMaterial, descripcion, cantidad, subtotal) VALUES (?, ?, ?, ?, ?)";
+    final String INSERT = "INSERT INTO detallePedidoProveedor (idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal) VALUES (?, ?, ?, ?, ?)";
     final String UPDATE = "UPDATE detallePedidoProveedor SET fecha = ?"; ///cambiar
-    final String DELETE = "DELETE FROM detallePedidoProveedor WHERE codPedProv = ? codMaterial = ?";
-    final String GETALL = "SELECT codPedProv, codMaterial, descripcion, cantidad, subtotal";
-    final String GETONE = "SELECT codPedProv, codMaterial, descripcion, cantidad, subtotal WHERE codPedProv = ? codMaterial = ?";
+    final String DELETE = "DELETE FROM detallePedidoProveedor WHERE idPedidoProveedor = ? idMaterial = ?";
+    final String GETALL = "SELECT idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal";
+    final String GETONE = "SELECT idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal WHERE idPedidoProveedor = ? idMaterial = ?";
         
     private Connection conn;
     

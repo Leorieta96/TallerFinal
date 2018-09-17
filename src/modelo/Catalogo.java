@@ -7,6 +7,11 @@ public class Catalogo {
     private Date fecha;
     private Long cuit;
 
+    public Catalogo(Date fecha, Long cuit) {
+        this.fecha = fecha;
+        this.cuit = cuit;
+    }
+    
     public Catalogo(Long idCatalogo, Date fecha, Long cuit) {
         this.idCatalogo = idCatalogo;
         this.fecha = fecha;

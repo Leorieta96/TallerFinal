@@ -12,11 +12,11 @@ import modelo.Cliente;
 
 public class MySQLClienteDAO implements ClienteDAO{
 
-    final String INSERT = "INSERT INTO cliente (DNI, nomCliente, telCliente, dirCliente, emailCliente) VALUES (?, ?, ?, ?)";
-    final String UPDATE = "UPDATE cliente SET nomCliente = ?, telCliente = ?, dirCliente = ?, emailCliente = ? WHERE DNI = ?";
+    final String INSERT = "INSERT INTO cliente (dni, nombre, telefono, direccion, email) VALUES (?, ?, ?, ?)";
+    final String UPDATE = "UPDATE cliente SET nombre = ?, telefono = ?, dirrecion = ?, email = ? WHERE DNI = ?";
     final String DELETE = "DELETE FROM cliente WHERE DNI = ?";
-    final String GETALL = "SELECT DNI, nomCliente, telCliente, dirCliente, emailCliente FROM cliente";
-    final String GETONE = "SELECT DNI, nomCliente, telCliente, dirCliente, emailCliente FROM cliente WHERE DNI = ?";
+    final String GETALL = "SELECT dni, nombre, telefono, dirrecion, email FROM cliente";
+    final String GETONE = "SELECT dni, nombre, telefono, direccion, email FROM cliente WHERE dni = ?";
         
     private Connection conn;
     

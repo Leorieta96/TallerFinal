@@ -12,11 +12,11 @@ import modelo.DetallePedidoCliente;
 
 public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     
-    final String INSERT = "INSERT INTO detallePedidoCliente (codPedidoC, CodMaterial, descPedC, subtotalPedC, cantidadPedC) VALUES (?, ?, ?, ?, ?)";
-    final String UPDATE = "UPDATE detallePedidoCliente SET codPedidoC = ?";
-    final String DELETE = "DELETE FROM detallePedidoCliente WHERE codPedidoC = ? CodMaterial = ?";
-    final String GETALL = "SELECT codPedidoC, codMaterial, descPedC, subtotalPedC, cantidadPedC";
-    final String GETONE = "SELECT codPedidoC, codMaterial, descPedC, subtotalPedC, cantidadPedC WHERE codCatalogo = ?";
+    final String INSERT = "INSERT INTO detallePedidoCliente (idPedidoCliente, idMaterial, descripcion, subtotalPedC, cantidadPedC) VALUES (?, ?, ?, ?, ?)";
+    final String UPDATE = "UPDATE detallePedidoCliente SET idPedidoCliente = ?";
+    final String DELETE = "DELETE FROM detallePedidoCliente WHERE idPedidoCliente = ? idMaterial = ?";
+    final String GETALL = "SELECT idPedidoCliente, codMaterial, descripcion, subtotalPedC, cantidadPedC";
+    final String GETONE = "SELECT idPedidoCliente, codMaterial, descripcion, subtotalPedC, cantidadPedC WHERE codCatalogo = ?";
 
     private Connection conn;
 
@@ -81,7 +81,7 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     }
 
     private DetallePedidoCliente convertir (ResultSet rs) throws SQLException{
-       DetallePedidoCliente detalle = new DetallePedidoCliente(rs.getLong("codPedidoC"), rs.getLong("codMaterial"), rs.getString("descPedC"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
+       DetallePedidoCliente detalle = new DetallePedidoCliente(rs.getLong("idPedidoCliente"), rs.getLong("codMaterial"), rs.getString("descripcion"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
         return detalle;
     }
     
