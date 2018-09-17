@@ -4,13 +4,13 @@ public class ItemCatalogo {
     private Long precioUnitario;
     private String nombre;
     private String marca;
-    private Catalogo codCatalogo;
+    private Catalogo idCatalogo;
 
-    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Catalogo codCatalogo) {
+    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Catalogo idCatalogo) {
         this.precioUnitario = precioUnitario;
         this.nombre = nombre;
         this.marca = marca;
-        this.codCatalogo = codCatalogo;
+        this.idCatalogo = idCatalogo;
     }
 
     public Long getPrecioUnitario() {
@@ -37,16 +37,16 @@ public class ItemCatalogo {
         this.marca = marca;
     }
 
-    public Catalogo getCodCatalogo() {
-        return codCatalogo;
+    public Catalogo getIdCatalogo() {
+        return idCatalogo;
     }
 
-    public void setCodCatalogo(Catalogo codCatalogo) {
-        this.codCatalogo = codCatalogo;
+    public void setIdCatalogo(Catalogo idCatalogo) {
+        this.idCatalogo = idCatalogo;
     }
 
     @Override
     public String toString() {
-        return "ItemCatalogo{" + "precioUnitario=" + precioUnitario + ", nombre=" + nombre + ", marca=" + marca + ", codCatalogo=" + codCatalogo + '}';
+        return "ItemCatalogo{" + "precioUnitario=" + precioUnitario + ", nombre=" + nombre + ", marca=" + marca + ", idCatalogo=" + idCatalogo + '}';
     }     
 }

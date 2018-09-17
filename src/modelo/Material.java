@@ -1,40 +1,50 @@
 package modelo;
 
 public class Material {
-    private Long codMaterial;
+    private Long idMaterial;
     private String tipoMaterial;
-    private String descMaterial;
+    private String descripcion;
+    private int stockMaterial;
     private long precioUnitario;
 
-    public Material(Long codMaterial, String tipoMaterial, String descMaterial, long precioUnitario) {
-        this.codMaterial = codMaterial;
+    public Material(Long idMaterial, String tipoMaterial, String descripcion, int stockMaterial, long precioUnitario) {
+        this.idMaterial = idMaterial;
         this.tipoMaterial = tipoMaterial;
-        this.descMaterial = descMaterial;
+        this.descripcion = descripcion;
+        this.stockMaterial = stockMaterial;
         this.precioUnitario = precioUnitario;
     }
 
-    public Long getCodMaterial() {
-        return codMaterial;
+    public Long getidMaterial() {
+        return idMaterial;
     }
 
-    public void setCodMaterial(Long codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setidMaterial(Long idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public String getTipoMaterial() {
         return tipoMaterial;
     }
 
+    public int getStockMaterial() {
+        return stockMaterial;
+    }
+
+    public void setStockMaterial(int stockMaterial) {
+        this.stockMaterial = stockMaterial;
+    }
+    
     public void setTipoMaterial(String tipoMaterial) {
         this.tipoMaterial = tipoMaterial;
     }
 
-    public String getDescMaterial() {
-        return descMaterial;
+    public String getdescripcion() {
+        return descripcion;
     }
 
-    public void setDescMaterial(String descMaterial) {
-        this.descMaterial = descMaterial;
+    public void setdescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public long getPrecioUnitario() {
@@ -47,6 +57,6 @@ public class Material {
 
     @Override
     public String toString() {
-        return "Material{" + "codMaterial=" + codMaterial + ", tipoMaterial=" + tipoMaterial + ", descMaterial=" + descMaterial + ", precioUnitario=" + precioUnitario + '}';
+        return "Material{" + "idMaterial=" + idMaterial + ", tipoMaterial=" + tipoMaterial + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario + '}';
     }
 }

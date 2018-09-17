@@ -1,62 +1,62 @@
 package modelo;
 
 public class Cliente {
-    private Long DNI;
-    private String nomCliente;
-    private int telCliente;
-    private String dirCliente;
-    private String emailCliente;
+    private Long dni;
+    private String nombre;
+    private int telefono;
+    private String direccion;
+    private String email;
 
-    public Cliente(Long DNI, String nomCliente, int telCliente, String dirCliente, String emailCliente) {
-        this.DNI = DNI;
-        this.nomCliente = nomCliente;
-        this.telCliente = telCliente;
-        this.dirCliente = dirCliente;
-        this.emailCliente = emailCliente;
+    public Cliente(Long dni, String nombre, int telefono, String direccion, String email) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.email = email;
     }
 
-    public Long getDNI() {
-        return DNI;
+    public Long getdni() {
+        return dni;
     }
 
-    public void setDNI(Long DNI) {
-        this.DNI = DNI;
+    public void setdni(Long dni) {
+        this.dni = dni;
     }
 
-    public String getNomCliente() {
-        return nomCliente;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNomCliente(String nomCliente) {
-        this.nomCliente = nomCliente;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public int getTelCliente() {
-        return telCliente;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setTelCliente(int telCliente) {
-        this.telCliente = telCliente;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public String getDirCliente() {
-        return dirCliente;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setDirCliente(String dirCliente) {
-        this.dirCliente = dirCliente;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getEmailCliente() {
-        return emailCliente;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailCliente(String emailCliente) {
-        this.emailCliente = emailCliente;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "DNI=" + DNI + ", nomCliente=" + nomCliente + ", telCliente=" + telCliente + ", dirCliente=" + dirCliente + ", emailCliente=" + emailCliente + '}';
+        return "Cliente{" + "dni=" + dni + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + ", email=" + email + '}';
     }
 }

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Catalogo;
 import modelo.Cliente;
 
 public class MySQLClienteDAO implements ClienteDAO{
@@ -30,11 +29,11 @@ public class MySQLClienteDAO implements ClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getDNI());
-            stat.setString(2, a.getNomCliente());
-            stat.setInt(3, a.getTelCliente());
-            stat.setString(4, a.getDirCliente());
-            stat.setString(5, a.getEmailCliente());
+            stat.setLong(1, a.getdni());
+            stat.setString(2, a.getNombre());
+            stat.setInt(3, a.getTelefono());
+            stat.setString(4, a.getDireccion());
+            stat.setString(5, a.getEmail());
             if(stat.executeUpdate()== 0){
                 System.out.println("Puede q no se haya guardado");
             }
@@ -56,7 +55,7 @@ public class MySQLClienteDAO implements ClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getDNI());
+            stat.setLong(1, a.getdni());
             if(stat.executeUpdate() == 0){
                 System.out.println("Puede que no se haya guardado");
             }

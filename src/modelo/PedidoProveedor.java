@@ -3,24 +3,24 @@ package modelo;
 import java.sql.Date;
 
 public class PedidoProveedor {
-    private Long codPedProv;
+    private Long idPedidoProveedor;
     private Date fechaEmision;
     private boolean estado;
     private Proveedor cuit;
 
-    public PedidoProveedor(Long codPedProv, Date fechaEmision, boolean estado, Proveedor cuit) {
-        this.codPedProv = codPedProv;
+    public PedidoProveedor(Long idPedidoProveedor, Date fechaEmision, boolean estado, Proveedor cuit) {
+        this.idPedidoProveedor = idPedidoProveedor;
         this.fechaEmision = fechaEmision;
         this.estado = estado;
         this.cuit = cuit;
     }
 
-    public Long getCodPedProv() {
-        return codPedProv;
+    public Long getIdPedidoProveedor() {
+        return idPedidoProveedor;
     }
 
-    public void setCodPedProv(Long codPedProv) {
-        this.codPedProv = codPedProv;
+    public void setIdPedidoProveedor(Long idPedidoProveedor) {
+        this.idPedidoProveedor = idPedidoProveedor;
     }
 
     public Date getFechaEmision() {
@@ -49,6 +49,6 @@ public class PedidoProveedor {
 
     @Override
     public String toString() {
-        return "PedidoProveedor{" + "codPedProv=" + codPedProv + ", estado=" + estado + ", cuit=" + cuit + '}';
+        return "PedidoProveedor{" + "idPedidoProveedor=" + idPedidoProveedor + ", estado=" + estado + ", cuit=" + cuit + '}';
     }
 }

@@ -29,9 +29,9 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getCodPedidoC());
-            stat.setLong(2, a.getCodMaterial());
-            stat.setString(3, a.getDescPedC());
+            stat.setLong(1, a.getIdPedidoCliente());
+            stat.setLong(2, a.getIdMaterial());
+            stat.setString(3, a.getDescripcion());
             stat.setFloat(4, a.getSubtotalPedC());
             stat.setInt(5, a.getCantidadPedC());
             if(stat.executeUpdate() == 0)
@@ -56,8 +56,8 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getCodPedidoC());
-            stat.setLong(2, a.getCodMaterial());
+            stat.setLong(1, a.getIdPedidoCliente());
+            stat.setLong(2, a.getIdMaterial());
             if(stat.executeUpdate() == 0){
                 System.out.println("Puede que no se haya guardado");
             }
@@ -133,7 +133,7 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
                 throw new DAOException("No se ha encntrado ese registro");
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro SQL");
+            throw new DAOException("Error SQL");
         }finally{
             if(rs != null){
                 try {

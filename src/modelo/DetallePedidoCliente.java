@@ -1,50 +1,50 @@
 package modelo;
 
 public class DetallePedidoCliente {
-    private Long codPedidoC;
-    private Long codMaterial;
-    private String descPedC;
-    private float subtotalPedC;
+    private Long idPedidoCliente;
+    private Long idMaterial;
+    private String descripcion;
+    private float subtotal;
     private int cantidadPedC;
 
-    public DetallePedidoCliente(Long codPedidoC, Long codMaterial, String descPedC, float subtotalPedC, int cantidadPedC) {
-        this.codPedidoC = codPedidoC;
-        this.codMaterial = codMaterial;
-        this.descPedC = descPedC;
-        this.subtotalPedC = subtotalPedC;
+    public DetallePedidoCliente(Long idPedidoCliente, Long idMaterial, String descripcion, float subtotal, int cantidadPedC) {
+        this.idPedidoCliente = idPedidoCliente;
+        this.idMaterial = idMaterial;
+        this.descripcion = descripcion;
+        this.subtotal = subtotal;
         this.cantidadPedC = cantidadPedC;
     }
 
-    public Long getCodPedidoC() {
-        return codPedidoC;
+    public Long getIdPedidoCliente() {
+        return idPedidoCliente;
     }
 
-    public void setCodPedidoC(Long codPedidoC) {
-        this.codPedidoC = codPedidoC;
+    public void setIdPedidoCliente(Long idPedidoCliente) {
+        this.idPedidoCliente = idPedidoCliente;
     }
 
-    public Long getCodMaterial() {
-        return codMaterial;
+    public Long getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setCodMaterial(Long codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setIdMaterial(Long idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
-    public String getDescPedC() {
-        return descPedC;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescPedC(String descPedC) {
-        this.descPedC = descPedC;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public float getSubtotalPedC() {
-        return subtotalPedC;
+        return subtotal;
     }
 
-    public void setSubtotalPedC(float subtotalPedC) {
-        this.subtotalPedC = subtotalPedC;
+    public void setSubtotalPedC(float subtotal) {
+        this.subtotal = subtotal;
     }
 
     public int getCantidadPedC() {
@@ -57,7 +57,7 @@ public class DetallePedidoCliente {
 
     @Override
     public String toString() {
-        return "DetallePedidoCliente{" + "codPedidoC=" + codPedidoC + ", codMaterial=" + codMaterial + ", descPedC=" + descPedC + ", subtotalPedC=" + subtotalPedC + ", cantidadPedC=" + cantidadPedC + '}';
+        return "DetallePedidoCliente{" + "idPedidoCliente=" + idPedidoCliente + ", idMaterial=" + idMaterial + ", descripcion=" + descripcion + ", subtotal=" + subtotal + ", cantidadPedC=" + cantidadPedC + '}';
     }
 
     

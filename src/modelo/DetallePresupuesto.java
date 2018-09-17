@@ -1,34 +1,34 @@
 package modelo;
 
 public class DetallePresupuesto {
-    private Presupuesto codPresupuesto;
-    private Material codMaterial;
+    private Presupuesto idPresupuesto;
+    private Material idMaterial;
     private String descripcion;
     private double subtotal;
     private int cantidad;
 
-    public DetallePresupuesto(Presupuesto codPresupuesto, Material codMaterial, String descripcion, double subtotal, int cantidad) {
-        this.codPresupuesto = codPresupuesto;
-        this.codMaterial = codMaterial;
+    public DetallePresupuesto(Presupuesto idPresupuesto, Material idMaterial, String descripcion, double subtotal, int cantidad) {
+        this.idPresupuesto = idPresupuesto;
+        this.idMaterial = idMaterial;
         this.descripcion = descripcion;
         this.subtotal = subtotal;
         this.cantidad = cantidad;
     }
 
-    public Presupuesto getCodPresupuesto() {
-        return codPresupuesto;
+    public Presupuesto getIdPresupuesto() {
+        return idPresupuesto;
     }
 
-    public void setCodPresupuesto(Presupuesto codPresupuesto) {
-        this.codPresupuesto = codPresupuesto;
+    public void setIdPresupuesto(Presupuesto idPresupuesto) {
+        this.idPresupuesto = idPresupuesto;
     }
 
-    public Material getCodMaterial() {
-        return codMaterial;
+    public Material getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setCodMaterial(Material codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setIdMaterial(Material idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public String getDescripcion() {
@@ -57,6 +57,6 @@ public class DetallePresupuesto {
 
     @Override
     public String toString() {
-        return "DetallePresupuesto{" + "codPresupuesto=" + codPresupuesto + ", codMaterial=" + codMaterial + ", descripcion=" + descripcion + ", subtotal=" + subtotal + ", cantidad=" + cantidad + '}';
+        return "DetallePresupuesto{" + "idPresupuesto=" + idPresupuesto + ", idMaterial=" + idMaterial + ", descripcion=" + descripcion + ", subtotal=" + subtotal + ", cantidad=" + cantidad + '}';
     }    
 }

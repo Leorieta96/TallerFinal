@@ -3,22 +3,22 @@ package modelo;
 import java.sql.Date;
 
 public class Presupuesto {
-    private Long codPresupuesto;
+    private Long idPresupuesto;
     private Date fecha;
     private double total;
 
-    public Presupuesto(Long codPresupuesto, Date fecha, double total) {
-        this.codPresupuesto = codPresupuesto;
+    public Presupuesto(Long idPresupuesto, Date fecha, double total) {
+        this.idPresupuesto = idPresupuesto;
         this.fecha = fecha;
         this.total = total;
     }
 
-    public Long getCodPresupuesto() {
-        return codPresupuesto;
+    public Long getIdPresupuesto() {
+        return idPresupuesto;
     }
 
-    public void setCodPresupuesto(Long codPresupuesto) {
-        this.codPresupuesto = codPresupuesto;
+    public void setIdPresupuesto(Long idPresupuesto) {
+        this.idPresupuesto = idPresupuesto;
     }
 
     public Date getFecha() {
@@ -39,6 +39,6 @@ public class Presupuesto {
 
     @Override
     public String toString() {
-        return "Presupuesto{" + "codPresupuesto=" + codPresupuesto + ", total=" + total + '}';
+        return "Presupuesto{" + "idPresupuesto=" + idPresupuesto + ", total=" + total + '}';
     }   
 }

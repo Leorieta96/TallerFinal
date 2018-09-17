@@ -29,7 +29,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getCodCatalogo());
+            stat.setLong(1, a.getIdCatalogo());
             stat.setDate(2, a.getFecha());
             stat.setObject(3, a.getCuit());
             if(stat.executeUpdate() == 0)
@@ -54,7 +54,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getCodCatalogo());
+            stat.setLong(1, a.getIdCatalogo());
             if(stat.executeUpdate() == 0){
                 System.out.println("Puede que no se haya guardado");
             }

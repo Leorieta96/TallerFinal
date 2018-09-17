@@ -3,16 +3,16 @@ package modelo;
 
 public class Proveedor {
     private Long cuit;
-    private String nomProveedor;
-    private int telProveedor;
-    private String dirProveedor;
+    private String nombre;
+    private int telefono;
+    private String direccion;
     private String rubro;
 
-    public Proveedor(Long cuit, String nomProveedor, int telProveedor, String dirProveedor, String rubro) {
+    public Proveedor(Long cuit, String nombre, int telefono, String direccion, String rubro) {
         this.cuit = cuit;
-        this.nomProveedor = nomProveedor;
-        this.telProveedor = telProveedor;
-        this.dirProveedor = dirProveedor;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
         this.rubro = rubro;
     }
 
@@ -24,28 +24,28 @@ public class Proveedor {
         this.cuit = cuit;
     }
 
-    public String getNomProveedor() {
-        return nomProveedor;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNomProveedor(String nomProveedor) {
-        this.nomProveedor = nomProveedor;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public int getTelProveedor() {
-        return telProveedor;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setTelProveedor(int telProveedor) {
-        this.telProveedor = telProveedor;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public String getDirProveedor() {
-        return dirProveedor;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setDirProveedor(String dirProveedor) {
-        this.dirProveedor = dirProveedor;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getRubro() {
@@ -58,6 +58,6 @@ public class Proveedor {
 
     @Override
     public String toString() {
-        return "Proveedor{" + "cuit=" + cuit + ", nomProveedor=" + nomProveedor + ", telProveedor=" + telProveedor + ", dirProveedor=" + dirProveedor + ", rubro=" + rubro + '}';
+        return "Proveedor{" + "cuit=" + cuit + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + ", rubro=" + rubro + '}';
     }
 }

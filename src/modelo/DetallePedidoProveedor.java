@@ -1,34 +1,34 @@
 package modelo;
 
 public class DetallePedidoProveedor {
-    private Long codPedProv;
-    private Long codMaterial;
+    private Long idPedidoProveedor;
+    private Long idMaterial;
     private String descripcion;
     private int cantidad;
     private double subtotal;
 
-    public DetallePedidoProveedor(Long codPedProv, Long codMaterial, String descripcion, int cantidad, double subtotal) {
-        this.codPedProv = codPedProv;
-        this.codMaterial = codMaterial;
+    public DetallePedidoProveedor(Long idPedidoProveedor, Long idMaterial, String descripcion, int cantidad, double subtotal) {
+        this.idPedidoProveedor = idPedidoProveedor;
+        this.idMaterial = idMaterial;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
 
-    public Long getCodPedProv() {
-        return codPedProv;
+    public Long getIdPedidoProveedor() {
+        return idPedidoProveedor;
     }
 
-    public void setCodPedProv(Long codPedProv) {
-        this.codPedProv = codPedProv;
+    public void setIdPedidoProveedor(Long idPedidoProveedor) {
+        this.idPedidoProveedor = idPedidoProveedor;
     }
 
-    public Long getCodMaterial() {
-        return codMaterial;
+    public Long getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setCodMaterial(Long codMaterial) {
-        this.codMaterial = codMaterial;
+    public void setIdMaterial(Long idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public String getDescripcion() {
@@ -57,6 +57,6 @@ public class DetallePedidoProveedor {
 
     @Override
     public String toString() {
-        return "DetallePedidoProveedor{" + "codPedProv=" + codPedProv + ", codMaterial=" + codMaterial + ", descripcion=" + descripcion + ", cantidad=" + cantidad + ", subtotal=" + subtotal + '}';
+        return "DetallePedidoProveedor{" + "idPedidoProveedor=" + idPedidoProveedor + ", idMaterial=" + idMaterial + ", descripcion=" + descripcion + ", cantidad=" + cantidad + ", subtotal=" + subtotal + '}';
     }    
 }
