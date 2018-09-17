@@ -5,6 +5,8 @@ import java.util.List;
 import modelo.Proveedor;
 
 public class MySQLProveedorDAO implements ProveedorDAO{
+    
+    
 
     @Override
     public void insertar(Proveedor a) {

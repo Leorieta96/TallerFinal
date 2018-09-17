@@ -14,7 +14,7 @@ import modelo.Catalogo;
 
 public class MySQLCatalogoDAO implements CatalogoDAO{
     
-    final String INSERT = "INSERT INTO catalogo (idCatalogo, fecha, cuit) VALUES (?, ?, ?)";
+    final String INSERT = "INSERT INTO catalogo (fecha, cuit) VALUES ( ?, ?)";
     final String UPDATE = "UPDATE catalogo SET fecha = ?";
     final String DELETE = "DELETE FROM catalogo WHERE idCatalogo = ?";
     final String GETALL = "SELECT *  FROM `catalogo`";
@@ -29,18 +29,30 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
     @Override
     public void insertar(Catalogo a) throws DAOException{
         PreparedStatement stat = null;
+        ResultSet rs = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getIdCatalogo());
-            stat.setDate(2, a.getFecha());
-            stat.setObject(3, a.getCuit());
-            if(stat.executeUpdate() == 0)
-            {   
+            stat.setDate(1, a.getFecha());
+            stat.setLong(2, a.getCuit());
+            if(stat.executeUpdate() == 0){   
                 System.out.println("Puede q no se haya guardado");
             }
+//            rs = stat.getGeneratedKeys();
+//            if(rs.next()){
+//                a.setIdCatalogo(rs.getLong(1));
+//            }else{
+//                throw new DAOException("Puede que no se haya generado");
+//            }
         } catch (SQLException ex) {
              throw new DAOException("Error en SQL", ex);
         }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
             if(stat != null){
                 try {
                     stat.close();
@@ -158,9 +170,9 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
 //        try {
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/siac", "root", "");
 //            CatalogoDAO dao = new MySQLCatalogoDAO(conn);
-//            Catalogo c = new Catalogo(16355L, new Date(1996,12,03), 215552L);
+//            Catalogo c = new Catalogo(new Date(96,12,03), 215552L);
 //            //dao.insertar(c);
-//            dao.eliminar(c);
+//            //dao.eliminar(c);
 //            List<Catalogo> catalogo = dao.obtenerTodos();
 //            for(Catalogo a: catalogo){
 //                System.out.println(catalogo.toString());
@@ -172,5 +184,5 @@ public class MySQLCatalogoDAO implements CatalogoDAO{
 //        }
 //        
 //    }
-//    
+    
 }
