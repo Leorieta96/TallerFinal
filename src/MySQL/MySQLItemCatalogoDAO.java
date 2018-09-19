@@ -3,6 +3,7 @@ package MySQL;
 import dao.ItemCalatalogoDAO;
 import java.util.List;
 import modelo.ItemCatalogo;
+import modelo.ItemCatalogo.Id;
 
 public class MySQLItemCatalogoDAO implements ItemCalatalogoDAO{
 
@@ -27,7 +28,7 @@ public class MySQLItemCatalogoDAO implements ItemCalatalogoDAO{
     }
 
     @Override
-    public ItemCatalogo obtener(Long id) {
+    public ItemCatalogo obtener(Id id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

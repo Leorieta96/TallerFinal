@@ -3,6 +3,7 @@ package MySQL;
 import dao.DetallePresupuestoDAO;
 import java.util.List;
 import modelo.DetallePresupuesto;
+import modelo.DetallePresupuesto.Id;
 
 public class MySQLDetallePresupuestoDAO implements DetallePresupuestoDAO{
 
@@ -27,7 +28,7 @@ public class MySQLDetallePresupuestoDAO implements DetallePresupuestoDAO{
     }
 
     @Override
-    public DetallePresupuesto obtener(Long id) {
+    public DetallePresupuesto obtener(Id id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

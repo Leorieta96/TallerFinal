@@ -1,34 +1,62 @@
 package modelo;
 
 public class DetallePresupuesto {
-    private Presupuesto idPresupuesto;
-    private Material idMaterial;
+
+    public class Id {
+
+        private Presupuesto idPresupuesto;
+        private Material idMaterial;
+
+        public Id(Presupuesto idPresupuesto, Material idMaterial) {
+            this.idPresupuesto = idPresupuesto;
+            this.idMaterial = idMaterial;
+        }
+
+        public Presupuesto getIdPresupuesto() {
+            return idPresupuesto;
+        }
+
+        public void setIdPresupuesto(Presupuesto idPresupuesto) {
+            this.idPresupuesto = idPresupuesto;
+        }
+
+        public Material getIdMaterial() {
+            return idMaterial;
+        }
+
+        public void setIdMaterial(Material idMaterial) {
+            this.idMaterial = idMaterial;
+        }
+
+    }
+
+    private Id id;
     private String descripcion;
     private double subtotal;
     private int cantidad;
 
     public DetallePresupuesto(Presupuesto idPresupuesto, Material idMaterial, String descripcion, double subtotal, int cantidad) {
-        this.idPresupuesto = idPresupuesto;
-        this.idMaterial = idMaterial;
+        this.id.idPresupuesto = idPresupuesto;
+        this.id.idMaterial = idMaterial;
         this.descripcion = descripcion;
         this.subtotal = subtotal;
         this.cantidad = cantidad;
     }
 
     public Presupuesto getIdPresupuesto() {
-        return idPresupuesto;
+        return id.idPresupuesto;
     }
 
     public void setIdPresupuesto(Presupuesto idPresupuesto) {
-        this.idPresupuesto = idPresupuesto;
+        this.id.idPresupuesto = idPresupuesto;
     }
 
     public Material getIdMaterial() {
-        return idMaterial;
+        return id.idMaterial;
     }
 
     public void setIdMaterial(Material idMaterial) {
-        this.idMaterial = idMaterial;
+        this.id.idMaterial = idMaterial;
     }
 
     public String getDescripcion() {
@@ -57,6 +85,6 @@ public class DetallePresupuesto {
 
     @Override
     public String toString() {
-        return "DetallePresupuesto{" + "idPresupuesto=" + idPresupuesto + ", idMaterial=" + idMaterial + ", descripcion=" + descripcion + ", subtotal=" + subtotal + ", cantidad=" + cantidad + '}';
-    }    
+        return "DetallePresupuesto{" + "idPresupuesto=" + id.idPresupuesto + ", idMaterial=" + id.idMaterial + ", descripcion=" + descripcion + ", subtotal=" + subtotal + ", cantidad=" + cantidad + '}';
+    }
 }

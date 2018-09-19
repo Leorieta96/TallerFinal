@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.DetallePedidoCliente;
+import modelo.DetallePedidoCliente.Id;
 
 public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     
@@ -29,8 +30,8 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getIdPedidoCliente());
-            stat.setLong(2, a.getIdMaterial());
+            stat.setLong(1, a.getId().getIdPedidoCliente());
+            stat.setLong(2, a.getId().getIdMaterial());
             stat.setString(3, a.getDescripcion());
             stat.setFloat(4, a.getSubtotalPedC());
             stat.setInt(5, a.getCantidadPedC());
@@ -56,8 +57,8 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getIdPedidoCliente());
-            stat.setLong(2, a.getIdMaterial());
+            stat.setLong(1, a.getId().getIdPedidoCliente());
+            stat.setLong(2, a.getId().getIdPedidoCliente());
             if(stat.executeUpdate() == 0){
                 System.out.println("Puede que no se haya guardado");
             }
@@ -81,7 +82,8 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     }
 
     private DetallePedidoCliente convertir (ResultSet rs) throws SQLException{
-       DetallePedidoCliente detalle = new DetallePedidoCliente(rs.getLong("idPedidoCliente"), rs.getLong("codMaterial"), rs.getString("descripcion"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
+        DetallePedidoCliente detalle = new DetallePedidoCliente(null , rs.getString("descripcion"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
+        detalle.setId(rs.getLong("idPedidoCliente"), rs.getLong("idMaterial"));
         return detalle;
     }
     
@@ -119,13 +121,14 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     }
 
     @Override
-    public DetallePedidoCliente obtener(Long id) throws DAOException {
+    public DetallePedidoCliente obtener(Id id) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs= null;
         DetallePedidoCliente c = null;
         try {
             stat = conn.prepareStatement(GETONE);
-            stat.setLong(1, id);
+            stat.setLong(1, id.getIdPedidoCliente());
+            stat.setLong(2, id.getIdMaterial());
             rs = stat.executeQuery();
             if(rs.next()){
                 c = convertir(rs);

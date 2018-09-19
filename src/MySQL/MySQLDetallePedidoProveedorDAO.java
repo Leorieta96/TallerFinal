@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.DetallePedidoProveedor;
+import modelo.DetallePedidoProveedor.Id;
 
 public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO{
 
@@ -41,7 +42,7 @@ public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO
     }
 
     @Override
-    public DetallePedidoProveedor obtener(Long id) {
+    public DetallePedidoProveedor obtener(Id id) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,7 +1,8 @@
 package dao;
 
 import modelo.DetallePresupuesto;
+import modelo.DetallePresupuesto.Id;
 
-public interface DetallePresupuestoDAO extends DAO<DetallePresupuesto, Long>{
+public interface DetallePresupuestoDAO extends DAO<DetallePresupuesto, Id>{
     
 }
