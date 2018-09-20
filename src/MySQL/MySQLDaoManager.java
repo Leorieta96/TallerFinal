@@ -126,9 +126,9 @@ public class MySQLDaoManager implements dao.DAOManager{
         }
         return proveedor;
     }
-    public static void main(String[] args) throws SQLException, DAOException {
-        MySQLDaoManager man = new MySQLDaoManager("localhost", "root", "", "siac");
-        List<Catalogo> catalogos = man.getCatalogoDAO().obtenerTodos();
-        System.out.println(catalogos);
-    }
+//    public static void main(String[] args) throws SQLException, DAOException {
+//        MySQLDaoManager man = new MySQLDaoManager("localhost", "root", "", "siac");
+//        List<Catalogo> catalogos = man.getCatalogoDAO().obtenerTodos();
+//        System.out.println(catalogos);
+//    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package vistas;
 
 import clases.Conectar;
 import java.sql.Connection;
