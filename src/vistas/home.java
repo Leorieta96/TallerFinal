@@ -34,71 +34,11 @@ public class home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogCompra = new javax.swing.JDialog();
-        jLabel2 = new javax.swing.JLabel();
-        btnAtrasC = new javax.swing.JButton();
-        btnRealizarPedido = new javax.swing.JButton();
-        btnRecibirPedido = new javax.swing.JButton();
-        btnRecibirCatalogo = new javax.swing.JButton();
         btnCompra = new javax.swing.JButton();
         btnVenta = new javax.swing.JButton();
         btnInforme = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
-
-        jLabel2.setFont(new java.awt.Font("Tekton Pro Cond", 1, 11)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Compra");
-
-        btnAtrasC.setText("Atras");
-        btnAtrasC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasCActionPerformed(evt);
-            }
-        });
-
-        btnRealizarPedido.setText("Realizar Pedido");
-
-        btnRecibirPedido.setText("Recibir Pedido");
-
-        btnRecibirCatalogo.setText("Recibir catalogo");
-
-        javax.swing.GroupLayout dialogCompraLayout = new javax.swing.GroupLayout(dialogCompra.getContentPane());
-        dialogCompra.getContentPane().setLayout(dialogCompraLayout);
-        dialogCompraLayout.setHorizontalGroup(
-            dialogCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogCompraLayout.createSequentialGroup()
-                .addGap(0, 174, Short.MAX_VALUE)
-                .addComponent(btnRealizarPedido)
-                .addGap(27, 27, 27)
-                .addComponent(btnRecibirPedido)
-                .addGap(26, 26, 26)
-                .addComponent(btnRecibirCatalogo)
-                .addGap(169, 169, 169))
-            .addGroup(dialogCompraLayout.createSequentialGroup()
-                .addGroup(dialogCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogCompraLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAtrasC))
-                    .addGroup(dialogCompraLayout.createSequentialGroup()
-                        .addGap(336, 336, 336)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        dialogCompraLayout.setVerticalGroup(
-            dialogCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogCompraLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel2)
-                .addGap(64, 64, 64)
-                .addGroup(dialogCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRealizarPedido)
-                    .addComponent(btnRecibirPedido)
-                    .addComponent(btnRecibirCatalogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
-                .addComponent(btnAtrasC)
-                .addGap(19, 19, 19))
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,11 +106,14 @@ public class home extends javax.swing.JFrame {
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
         // TODO add your handling code here:
-        dialogCompra.setVisible(true);
-        //this.dispose();
-        dialogCompra.setTitle("Compra");
-        dialogCompra.setSize(850,500);
-        dialogCompra.setLocationRelativeTo(null);
+        Compra ventanaCompra = new Compra();
+        ventanaCompra.setVisible(true);
+        this.dispose();
+//        dialogCompra.setVisible(true);
+//        //this.dispose();
+//        dialogCompra.setTitle("Compra");
+//        dialogCompra.setSize(850,500);
+//        dialogCompra.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_btnCompraActionPerformed
 
@@ -178,10 +121,6 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void btnAtrasCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasCActionPerformed
-        dialogCompra.dispose();
-    }//GEN-LAST:event_btnAtrasCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,16 +159,10 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtrasC;
     private javax.swing.JButton btnCompra;
     private javax.swing.JButton btnInforme;
-    private javax.swing.JButton btnRealizarPedido;
-    private javax.swing.JButton btnRecibirCatalogo;
-    private javax.swing.JButton btnRecibirPedido;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVenta;
-    private javax.swing.JDialog dialogCompra;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
