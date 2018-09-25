@@ -7,6 +7,7 @@ package clases;
 
 import MySQL.MySQLMaterialDAO;
 import MySQL.MySQLProveedorDAO;
+import dao.DAOException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Material;
@@ -36,45 +37,45 @@ public class Compra {
 
     }
 
-    public List<Material> obtenerEscasos() {
-
-        MySQLMaterialDAO listMatAll = new MySQLMaterialDAO();
-        List<Material> listMat = listMatAll.obtenerTodos();
-        for (Material m : listMat) {
-            if (m.getStockMaterial() < 5) {
-                listMat.remove(listMat.indexOf(m));
-            }
-        }
-        return listMat;
-    }
-
-    public List<String> rubrosPredominantes(List<Material> listMat) {
-        List<String> listRubros = new ArrayList<>();
-        int[] rubros = {0, 0, 0, 0, 0};
-        String desc;/// cambiar a rubro
-        for (Material m : listMat) {
-            desc = m.getdescripcion();
-            switch (desc) {
-                case "Pintureria":
-                    rubros[0]++;
-                    break;
-                case "PVC":
-                    rubros[1]++;
-                    break;
-                case "Construccion":
-                    rubros[2]++;
-                    break;
-                case "Ferreteria":
-                    rubros[3]++;
-                    break;
-                case "Electricidad":
-                    rubros[4]++;
-                    break;
-            }
-        }
-        listRubros = mayores(rubros);
-        return listRubros;
-    }
+//    public List<Material> obtenerEscasos() throws DAOException {
+//
+//        MySQLMaterialDAO listMatAll = new MySQLMaterialDAO(conn);
+//        List<Material> listMat = listMatAll.obtenerTodos();
+//        for (Material m : listMat) {
+//            if (m.getStockMaterial() < 5) {
+//                listMat.remove(listMat.indexOf(m));
+//            }
+//        }
+//        return listMat;
+//    }
+//
+//    public List<String> rubrosPredominantes(List<Material> listMat) {
+//        List<String> listRubros = new ArrayList<>();
+//        int[] rubros = {0, 0, 0, 0, 0};
+//        String desc;/// cambiar a rubro
+//        for (Material m : listMat) {
+//            desc = m.getdescripcion();
+//            switch (desc) {
+//                case "Pintureria":
+//                    rubros[0]++;
+//                    break;
+//                case "PVC":
+//                    rubros[1]++;
+//                    break;
+//                case "Construccion":
+//                    rubros[2]++;
+//                    break;
+//                case "Ferreteria":
+//                    rubros[3]++;
+//                    break;
+//                case "Electricidad":
+//                    rubros[4]++;
+//                    break;
+//            }
+//        }
+//        listRubros = mayores(rubros);
+//        return listRubros;
+//    }
 
     private List<String> mayores(int[] a) {
         List<String> listRubros = new ArrayList<>();

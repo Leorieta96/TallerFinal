@@ -5,17 +5,32 @@
  */
 package vistas;
 
+import MySQL.MySQLDaoManager;
+import dao.DAOException;
+import dao.DAOManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author leori
  */
 public class Compra extends javax.swing.JFrame {
 
+    private DAOManager manager;
+    private MaterialEscasoTableModel model;
+
     /**
      * Creates new form Compra
+     * @throws dao.DAOException
      */
-    public Compra() {
+    public Compra(DAOManager manager) throws DAOException {
         initComponents();
+        this.manager = manager;
+        this.model = new MaterialEscasoTableModel(manager.getMaterialDAO());
+        this.model.updateModel();
+        this.jTable1.setModel(model);
     }
 
     /**
@@ -43,10 +58,11 @@ public class Compra extends javax.swing.JFrame {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Cod Material", "Material", "Precio Unitario", "Descripcion", "Strock", "Seleccionar"
+                "Cod Material", "Tipo de Material", "Descripcion", "Stock", "Precio Unitario", "Seleccionar"
             }
         ) {
             Class[] types = new Class [] {
@@ -72,6 +88,7 @@ public class Compra extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
         btnAtras.setText("Atras");
@@ -174,8 +191,14 @@ public class Compra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasCActionPerformed
-        home ventHome = new home();
-        ventHome.setVisible(true);
+        home ventHome;
+        try {
+            ventHome = new home();
+            ventHome.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.dispose();
     }//GEN-LAST:event_btnAtrasCActionPerformed
 
@@ -195,34 +218,15 @@ public class Compra extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public static void main(String args[]) throws SQLException {
+        DAOManager manager = new MySQLDaoManager("localhost", "root", "", "siac");
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Compra().setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new Compra(manager).setVisible(true);
+            } catch (DAOException ex) {
+                Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

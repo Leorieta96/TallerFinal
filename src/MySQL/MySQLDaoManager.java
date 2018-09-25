@@ -98,7 +98,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public MaterialDAO getMaterialDAO() {
         if(material == null){
-            material = new MySQLMaterialDAO();
+            material = new MySQLMaterialDAO(conn);
         }
         return material;
     }

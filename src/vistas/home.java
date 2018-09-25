@@ -5,10 +5,12 @@
  */
 package vistas;
 
+import MySQL.MySQLDaoManager;
+import dao.DAOException;
+import dao.DAOManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 /**
  *
@@ -16,13 +18,16 @@ import java.util.logging.Logger;
  */
 public class home extends javax.swing.JFrame {
 
+    DAOManager manager;
+
     /**
      * Creates new form inicio
      */
-    public home() {
+    public home() throws SQLException {
+        this.manager = new MySQLDaoManager("localhost", "root", "", "siac");
         initComponents();
         setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -106,15 +111,20 @@ public class home extends javax.swing.JFrame {
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
         // TODO add your handling code here:
-        Compra ventanaCompra = new Compra();
-        ventanaCompra.setVisible(true);
+        Compra ventanaCompra;
+        try {
+            ventanaCompra = new Compra(manager);
+            ventanaCompra.setVisible(true);
+        } catch (DAOException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
 //        dialogCompra.setVisible(true);
 //        //this.dispose();
 //        dialogCompra.setTitle("Compra");
 //        dialogCompra.setSize(850,500);
 //        dialogCompra.setLocationRelativeTo(null);
-        
+
     }//GEN-LAST:event_btnCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -153,7 +163,11 @@ public class home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new home().setVisible(true);
+                try {
+                    new home().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
