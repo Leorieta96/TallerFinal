@@ -5,9 +5,12 @@
  */
 package clases;
 
+import MySQL.MySQLDaoManager;
 import MySQL.MySQLMaterialDAO;
 import MySQL.MySQLProveedorDAO;
 import dao.DAOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Material;
@@ -18,6 +21,12 @@ import modelo.Proveedor;
  * @author leori
  */
 public class Compra {
+
+    MySQLDaoManager manager;
+
+    public Compra() throws SQLException {
+        manager = new MySQLDaoManager("localhost", "root","", "siac");
+    }
 
     class Rubro {
 
@@ -76,7 +85,6 @@ public class Compra {
 //        listRubros = mayores(rubros);
 //        return listRubros;
 //    }
-
     private List<String> mayores(int[] a) {
         List<String> listRubros = new ArrayList<>();
         for (int j = 0; j < 3; j++) {
@@ -115,12 +123,12 @@ public class Compra {
         return listRubros;
     }
 
-    public List<Proveedor> obtenerProveedoresRubro(String descripcion) { // cambiar a rubro
-        MySQLProveedorDAO listProveedorAll = new MySQLProveedorDAO();
-        List<Proveedor> listProveedores = listProveedorAll.obtenerTodos();
-        listProveedores.stream().filter((p) -> (p.getRubro().equals(descripcion))).forEach((p) -> {
-            listProveedores.remove(listProveedores.indexOf(p));
-        });
-        return listProveedores;
-    }
+//    public List<Proveedor> obtenerProveedoresRubro(String descripcion) { // cambiar a rubro
+//        MySQLProveedorDAO listProveedorAll = new MySQLProveedorDAO();
+//        List<Proveedor> listProveedores = listProveedorAll.obtenerTodos();
+//        listProveedores.stream().filter((p) -> (p.getRubro().equals(descripcion))).forEach((p) -> {
+//            listProveedores.remove(listProveedores.indexOf(p));
+//        });
+//        return listProveedores;
+//    }
 }

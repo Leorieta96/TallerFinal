@@ -13,6 +13,12 @@ public class Presupuesto {
         this.total = total;
     }
 
+    public Presupuesto(Date fecha, double total) {
+        this.fecha = fecha;
+        this.total = total;
+    }
+    
+
     public Long getIdPresupuesto() {
         return idPresupuesto;
     }

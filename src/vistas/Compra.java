@@ -18,11 +18,12 @@ import java.util.logging.Logger;
  */
 public class Compra extends javax.swing.JFrame {
 
-    private DAOManager manager;
-    private MaterialEscasoTableModel model;
+    private final DAOManager manager;
+    private final MaterialEscasoTableModel model;
 
     /**
      * Creates new form Compra
+     * @param manager
      * @throws dao.DAOException
      */
     public Compra(DAOManager manager) throws DAOException {
@@ -30,7 +31,13 @@ public class Compra extends javax.swing.JFrame {
         this.manager = manager;
         this.model = new MaterialEscasoTableModel(manager.getMaterialDAO());
         this.model.updateModel();
+        
+        //model.addColumn("Seleccionar");
+//        this.jTable1.getColumnModel().getColumn(5).setCellEditor(new CellEditor());
+//        this.jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRender());
         this.jTable1.setModel(model);
+//        JScrollPane  scroll = new JScrollPane(jTable1);
+//        jTable1.setPreferredScrollableViewportSize(new Dimension(500,70));
     }
 
     /**
@@ -52,29 +59,19 @@ public class Compra extends javax.swing.JFrame {
         btnRealizarPedido = new javax.swing.JButton();
         btnRecibirPedido = new javax.swing.JButton();
         btnRecibirCatalogo = new javax.swing.JButton();
+        btnProveedor = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Cod Material", "Tipo de Material", "Descripcion", "Stock", "Precio Unitario", "Seleccionar"
+                "null", "null", "null", "null"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -82,14 +79,6 @@ public class Compra extends javax.swing.JFrame {
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -106,8 +95,8 @@ public class Compra extends javax.swing.JFrame {
             dialogRealizarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogRealizarPedidoLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(dialogRealizarPedidoLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(btnAtras)
@@ -119,8 +108,8 @@ public class Compra extends javax.swing.JFrame {
             dialogRealizarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogRealizarPedidoLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dialogRealizarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtras)
                     .addComponent(btnSiguiente))
@@ -151,6 +140,13 @@ public class Compra extends javax.swing.JFrame {
 
         btnRecibirCatalogo.setText("Recibir catalogo");
 
+        btnProveedor.setText("Proveedores");
+        btnProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProveedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +163,9 @@ public class Compra extends javax.swing.JFrame {
                         .addGap(74, 74, 74)
                         .addComponent(btnRealizarPedido)
                         .addGap(27, 27, 27)
-                        .addComponent(btnRecibirPedido)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnProveedor)
+                            .addComponent(btnRecibirPedido))
                         .addGap(26, 26, 26)
                         .addComponent(btnRecibirCatalogo)))
                 .addContainerGap(95, Short.MAX_VALUE))
@@ -182,7 +180,9 @@ public class Compra extends javax.swing.JFrame {
                     .addComponent(btnRealizarPedido)
                     .addComponent(btnRecibirPedido)
                     .addComponent(btnRecibirCatalogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(btnProveedor)
+                .addGap(39, 39, 39)
                 .addComponent(btnAtrasC)
                 .addGap(19, 19, 19))
         );
@@ -198,7 +198,6 @@ public class Compra extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         this.dispose();
     }//GEN-LAST:event_btnAtrasCActionPerformed
 
@@ -215,8 +214,18 @@ public class Compra extends javax.swing.JFrame {
         dialogRealizarPedido.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    private void btnProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedorActionPerformed
+        // TODO add your handling code here:
+        vtnProveedores vtnProveedores;
+        vtnProveedores = new vtnProveedores(manager);
+        vtnProveedores.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnProveedorActionPerformed
+
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
     public static void main(String args[]) throws SQLException {
         DAOManager manager = new MySQLDaoManager("localhost", "root", "", "siac");
@@ -234,6 +243,7 @@ public class Compra extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAtrasC;
+    private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnRealizarPedido;
     private javax.swing.JButton btnRecibirCatalogo;
     private javax.swing.JButton btnRecibirPedido;

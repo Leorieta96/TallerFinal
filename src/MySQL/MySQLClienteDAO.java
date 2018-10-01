@@ -10,20 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Cliente;
 
-public class MySQLClienteDAO implements ClienteDAO{
+public class MySQLClienteDAO implements ClienteDAO {
 
     final String INSERT = "INSERT INTO cliente (dni, nombre, telefono, direccion, email) VALUES (?, ?, ?, ?)";
     final String UPDATE = "UPDATE cliente SET nombre = ?, telefono = ?, dirrecion = ?, email = ? WHERE DNI = ?";
     final String DELETE = "DELETE FROM cliente WHERE DNI = ?";
     final String GETALL = "SELECT dni, nombre, telefono, dirrecion, email FROM cliente";
     final String GETONE = "SELECT dni, nombre, telefono, direccion, email FROM cliente WHERE dni = ?";
-        
+
     private Connection conn;
-    
-    public MySQLClienteDAO(Connection conn){
-        this.conn = conn;    
+
+    public MySQLClienteDAO(Connection conn) {
+        this.conn = conn;
     }
-     
+
     @Override
     public void insertar(Cliente a) {
         PreparedStatement stat = null;
@@ -34,39 +34,39 @@ public class MySQLClienteDAO implements ClienteDAO{
             stat.setInt(3, a.getTelefono());
             stat.setString(4, a.getDireccion());
             stat.setString(5, a.getEmail());
-            if(stat.executeUpdate()== 0){
+            if (stat.executeUpdate() == 0) {
                 System.out.println("Puede q no se haya guardado");
             }
         } catch (Exception e) {
             System.out.println("Error" + e);
-        } finally{
-            if(stat != null){
+        } finally {
+            if (stat != null) {
                 try {
                     stat.close();
                 } catch (Exception e) {
                     System.out.println("Error" + e);
                 }
-            }        
+            }
         }
     }
 
     @Override
-    public void eliminar(Cliente a) throws DAOException{
+    public void eliminar(Cliente a) throws DAOException {
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
             stat.setLong(1, a.getdni());
-            if(stat.executeUpdate() == 0){
+            if (stat.executeUpdate() == 0) {
                 System.out.println("Puede que no se haya guardado");
             }
         } catch (SQLException ex) {
             throw new DAOException("Error delete", ex);
-        }finally{
-            if(stat != null){
+        } finally {
+            if (stat != null) {
                 try {
                     stat.close();
                 } catch (SQLException ex) {
-                        throw new DAOException("Error delete", ex);
+                    throw new DAOException("Error delete", ex);
 
                 }
             }
@@ -77,35 +77,35 @@ public class MySQLClienteDAO implements ClienteDAO{
     public void modificar(Cliente a) {
         ;
     }
-    
-    private Cliente convertir (ResultSet rs) throws SQLException{
-       Cliente cliente = new Cliente(rs.getLong("DNI"), rs.getString("nomCliente"), rs.getInt("telCliente"), rs.getString("irCliente"), rs.getString("emailCliente"));
+
+    private Cliente convertir(ResultSet rs) throws SQLException {
+        Cliente cliente = new Cliente(rs.getLong("DNI"), rs.getString("nomCliente"), rs.getInt("telCliente"), rs.getString("irCliente"), rs.getString("emailCliente"));
         return cliente;
     }
-    
+
     @Override
-    public List<Cliente> obtenerTodos() throws DAOException{
+    public List<Cliente> obtenerTodos() throws DAOException {
         PreparedStatement stat = null;
-        ResultSet rs= null;
+        ResultSet rs = null;
         List<Cliente> clientes = new ArrayList<>();
-        
+
         try {
             stat = conn.prepareStatement(GETALL);
             rs = stat.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 clientes.add(convertir(rs));
             }
         } catch (SQLException e) {
             throw new DAOException("Erro SQL");
-        }finally{
-            if(rs != null){
+        } finally {
+            if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
                     throw new DAOException("Error en SQL", e);
                 }
             }
-            if(stat != null){
+            if (stat != null) {
                 try {
                     stat.close();
                 } catch (SQLException e) {
@@ -119,28 +119,28 @@ public class MySQLClienteDAO implements ClienteDAO{
     @Override
     public Cliente obtener(Long id) throws DAOException {
         PreparedStatement stat = null;
-        ResultSet rs= null;
+        ResultSet rs = null;
         Cliente c = null;
         try {
             stat = conn.prepareStatement(GETONE);
             stat.setLong(1, id);
             rs = stat.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 c = convertir(rs);
-            }else{
+            } else {
                 throw new DAOException("No se ha encntrado ese registro");
             }
         } catch (SQLException e) {
             throw new DAOException("Erro SQL");
-        }finally{
-            if(rs != null){
+        } finally {
+            if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
                     throw new DAOException("Error en SQL", e);
                 }
             }
-            if(stat != null){
+            if (stat != null) {
                 try {
                     stat.close();
                 } catch (SQLException e) {
@@ -149,5 +149,5 @@ public class MySQLClienteDAO implements ClienteDAO{
             }
         }
         return c;
-    }  
+    }
 }

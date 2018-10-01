@@ -12,12 +12,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import modelo.Material;
 import clases.Compra;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author leori
  */
-public class MaterialEscasoTableModel extends AbstractTableModel {
+public class MaterialEscasoTableModel extends AbstractTableModel{
 
     private MaterialDAO materiales;
     private Compra compras;
@@ -44,8 +45,8 @@ public class MaterialEscasoTableModel extends AbstractTableModel {
                 return "stock";
             case 4:
                 return "Precio Unitario";
-            case 5:
-                return "Seleccionar";
+//            case 5:
+//                return "Seleccionar";
             default:
                 return " ";
         }
@@ -58,7 +59,7 @@ public class MaterialEscasoTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
 
     @Override
@@ -75,27 +76,25 @@ public class MaterialEscasoTableModel extends AbstractTableModel {
                 return preguntado.getStockMaterial();
             case 4:
                 return preguntado.getPrecioUnitario();
-            case 5:
-                return false;
-//            default:
-//                return "";
+//            case 5:
+//                return false;
+            default:
+               return "";
         }
-        return null;
+//        return null;
     }
-    
+
+    Class[] types = new Class[]{
+        java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, //java.lang.Boolean.class
+    };
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return types[columnIndex];
+    }
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if (columnIndex == 6) {
-            return true;
-        } else {
-            return false;
-        }
+        return columnIndex == 5;
     }
-    Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-    
-    public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 }

@@ -3,6 +3,7 @@ package MySQL;
 import dao.DAOException;
 import dao.PresupuestoDAO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +64,7 @@ public class MySQLPresupuestoDAO implements PresupuestoDAO{
     private Presupuesto convertir(ResultSet rs) throws SQLException{ 
         Date fecha = rs.getDate("fecha");
         Double total = rs.getDouble("total");
-        Presupuesto presupuesto = new Presupuesto(fecha. total);
+        Presupuesto presupuesto = new Presupuesto(fecha,total);
         presupuesto.setIdPresupuesto(rs.getLong("codPresupuesto"));
         return presupuesto;
         

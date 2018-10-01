@@ -122,7 +122,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public ProveedorDAO getProveedorDAO() {
         if(proveedor == null){
-            proveedor = new MySQLProveedorDAO();
+            proveedor = new MySQLProveedorDAO(conn);
         }
         return proveedor;
     }
