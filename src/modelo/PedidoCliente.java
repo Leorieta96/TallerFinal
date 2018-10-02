@@ -8,9 +8,9 @@ public class PedidoCliente {
     private int totalPedidoC;
     private Date fechaEmision;
     private Date fechaRecibido;
-    private Cliente dni;
+    private Long dni;
 
-    public PedidoCliente(Long idPedidoCliente, String estadoPedidoC, int totalPedidoC, Date fechaEmision, Date fechaRecibido, Cliente dni) {
+    public PedidoCliente(Long idPedidoCliente, String estadoPedidoC, int totalPedidoC, Date fechaEmision, Date fechaRecibido, Long dni) {
         this.idPedidoCliente = idPedidoCliente;
         this.estadoPedidoC = estadoPedidoC;
         this.totalPedidoC = totalPedidoC;
@@ -18,6 +18,8 @@ public class PedidoCliente {
         this.fechaRecibido = fechaRecibido;
         this.dni = dni;
     }
+
+   
 
     public Long getIdPedidoCliente() {
         return idPedidoCliente;
@@ -59,11 +61,11 @@ public class PedidoCliente {
         this.fechaRecibido = fechaRecibido;
     }
 
-    public Cliente getdni() {
+    public Long getdni() {
         return dni;
     }
 
-    public void setdni(Cliente dni) {
+    public void setdni(Long dni) {
         this.dni = dni;
     }
 

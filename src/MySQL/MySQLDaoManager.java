@@ -74,7 +74,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public DetallePedidoProveedorDAO getDetallePedidoProveedorDAO() {
         if(detallePedidoProveedor == null){
-            detallePedidoProveedor = new MySQLDetallePedidoProveedorDAO();
+            detallePedidoProveedor = new MySQLDetallePedidoProveedorDAO(conn);
         }
         return detallePedidoProveedor;
     }
@@ -106,7 +106,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public PedidoClienteDAO getPedidoClienteDAO() {
         if(pedidoCliente == null){
-            pedidoCliente = new MySQLPedidoClienteDAO();
+            pedidoCliente = new MySQLPedidoClienteDAO(conn);
         }
         return pedidoCliente;
     }
@@ -114,7 +114,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public PedidoProveedorDAO getPedidoProveedorDAO() {
         if(pedidoProveedor == null){
-            pedidoProveedor = new MySQLPedidoProveedorDAO();
+            pedidoProveedor = new MySQLPedidoProveedorDAO(conn);
         }
         return pedidoProveedor;
     }
