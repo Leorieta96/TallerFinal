@@ -55,6 +55,11 @@ public class home extends javax.swing.JFrame {
         });
 
         btnVenta.setText("Venta");
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
 
         btnInforme.setText("Informes");
 
@@ -131,6 +136,13 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+       ventVenta ventanaVenta = new ventVenta();
+       ventanaVenta.setVisible(true);
+       ventanaVenta.setSize(800, 500);
+       this.dispose();
+    }//GEN-LAST:event_btnVentaActionPerformed
 
     /**
      * @param args the command line arguments
