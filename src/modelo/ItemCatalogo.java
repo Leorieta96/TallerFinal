@@ -2,11 +2,6 @@ package modelo;
 
 public class ItemCatalogo {
 
-    public ItemCatalogo(Object object, String string, String string0) {//VERIFICARRRR!!!!!!!!!!
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public class Id {
 
         private Long precioUnitario;
@@ -45,9 +40,9 @@ public class ItemCatalogo {
 
     }
     private Id id;
-    private Catalogo idCatalogo;
+    private Long idCatalogo;
 
-    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Catalogo idCatalogo) {
+    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Long idCatalogo) {
         this.id.precioUnitario = precioUnitario;
         this.id.nombre = nombre;
         this.id.marca = marca;
@@ -78,11 +73,11 @@ public class ItemCatalogo {
         this.id.marca = marca;
     }
 
-    public Catalogo getIdCatalogo() {
+    public Long getIdCatalogo() {
         return idCatalogo;
     }
 
-    public void setIdCatalogo(Catalogo idCatalogo) {
+    public void setIdCatalogo(Long idCatalogo) {
         this.idCatalogo = idCatalogo;
     }
 

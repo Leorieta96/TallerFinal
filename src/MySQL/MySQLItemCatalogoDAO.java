@@ -84,10 +84,10 @@ public class MySQLItemCatalogoDAO implements ItemCalatalogoDAO {
     }
 
     private ItemCatalogo convertir(ResultSet rs) throws SQLException {
-        ItemCatalogo item = new ItemCatalogo(null, rs.getString("Nombre"), rs.getString("Marca"));
-        item.setPrecioUnitario(rs.getLong("precioUnitario"));
-        item.setNombre("Nombre");
-        item.setMarca(rs.getString("Marca"));
+        ItemCatalogo item = new ItemCatalogo(rs.getLong("precioUnitario"), rs.getString("Nombre"), rs.getString("Marca"),rs.getLong("idCatalogo"));
+//        item.setPrecioUnitario(rs.getLong("precioUnitario"));
+//        item.setNombre("Nombre");
+//        item.setMarca(rs.getString("Marca"));
         return item;
 
     }
