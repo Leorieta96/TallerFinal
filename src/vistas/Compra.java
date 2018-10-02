@@ -243,7 +243,7 @@ public class Compra extends javax.swing.JFrame {
                         .addComponent(btnAtrasRC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(332, Short.MAX_VALUE)
                         .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
                                 .addGap(99, 99, 99)
@@ -287,7 +287,7 @@ public class Compra extends javax.swing.JFrame {
             .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
                 .addGap(327, 327, 327)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(572, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dialogRecibirCatalgoLayout.setVerticalGroup(
             dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,7 +460,7 @@ public class Compra extends javax.swing.JFrame {
         LocalDate todayLocalDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
         java.sql.Date sqlDate = java.sql.Date.valueOf(todayLocalDate);
         Catalogo catalogo = new Catalogo(sqlDate, Long.valueOf(txtCuitRC.getText()));
-        
+
         try {
             manager.getCatalogoDAO().insertar(catalogo);
             Long id = catalogo.getIdCatalogo();
@@ -496,6 +496,11 @@ public class Compra extends javax.swing.JFrame {
                 txtDireccionP.setText(p.getDireccion());
                 txtDireccionP.setEditable(false);
 
+            } else {
+                vtnProveedores vtnProveedores;
+                vtnProveedores = new vtnProveedores(manager);
+                vtnProveedores.setVisible(true);
+                
             }
         } catch (DAOException ex) {
             Logger.getLogger(vtnProveedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -514,7 +519,7 @@ public class Compra extends javax.swing.JFrame {
         Long id = null;
         ItemCatalogo item = new ItemCatalogo(precio, mat, marca, id);
         listItemCatalogo.add(item);
-        
+
         tableItemCatalogo.setValueAt(mat, fila, 0);
         tableItemCatalogo.setValueAt(precio, fila, 1);
         tableItemCatalogo.setValueAt(marca, fila, 2);

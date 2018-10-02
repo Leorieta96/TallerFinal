@@ -372,7 +372,7 @@ public class vtnProveedores extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dialogSucces.setVisible(false);
-        
+        this.dispose();
         txtCuit.setText("");
         txtNombre.setText("");
         txtDireccion.setText("");

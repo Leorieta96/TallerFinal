@@ -97,7 +97,7 @@ public class MySQLProveedorDAO implements ProveedorDAO {
             if (rs.next()) {
                 c = convertir(rs);
             } else {
-                throw new DAOException("No se ha encntrado ese registro");
+                c = null;
             }
         } catch (SQLException e) {
             throw new DAOException("Erro SQL");
