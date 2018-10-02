@@ -1,8 +1,11 @@
 package modelo;
 
-import java.sql.Date;
-
 public class ItemCatalogo {
+
+    public ItemCatalogo(Object object, String string, String string0) {//VERIFICARRRR!!!!!!!!!!
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public class Id {
 
@@ -42,42 +45,44 @@ public class ItemCatalogo {
 
     }
     private Id id;
-    private Long idCatalogo;
+    private Catalogo idCatalogo;
 
-    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Long idCatalogo) {
-        this.id = new Id(precioUnitario, nombre, marca);
+    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Catalogo idCatalogo) {
+        this.id.precioUnitario = precioUnitario;
+        this.id.nombre = nombre;
+        this.id.marca = marca;
         this.idCatalogo = idCatalogo;
     }
 
     public Long getPrecioUnitario() {
-        return id.getPrecioUnitario();
+        return id.precioUnitario;
     }
 
     public void setPrecioUnitario(Long precioUnitario) {
-        this.id.setPrecioUnitario(precioUnitario); 
+        this.id.precioUnitario = precioUnitario;
     }
 
     public String getNombre() {
-        return id.getNombre();
+        return id.nombre;
     }
 
     public void setNombre(String nombre) {
-        this.id.setNombre(nombre);
+        this.id.nombre = nombre;
     }
 
     public String getMarca() {
-        return id.getMarca();
+        return id.marca;
     }
 
     public void setMarca(String marca) {
-        this.id.setMarca(marca);
+        this.id.marca = marca;
     }
 
-    public Long getIdCatalogo() {
+    public Catalogo getIdCatalogo() {
         return idCatalogo;
     }
 
-    public void setIdCatalogo(Long idCatalogo) {
+    public void setIdCatalogo(Catalogo idCatalogo) {
         this.idCatalogo = idCatalogo;
     }
 

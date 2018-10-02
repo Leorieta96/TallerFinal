@@ -1,171 +1,161 @@
 package MySQL;
 
-import dao.DetallePedidoProveedorDAO;
 import dao.DAOException;
+import dao.PedidoProveedorDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.DetallePedidoProveedor;
-import modelo.DetallePedidoProveedor.Id;
+import modelo.PedidoProveedor;
 
-public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO{
-
-    final String INSERT = "INSERT INTO detallePedidoProveedor (idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal) VALUES (?, ?, ?, ?, ?)";
-    final String UPDATE = "UPDATE detallePedidoProveedor SET fecha = ?"; ///cambiar
-    final String DELETE = "DELETE FROM detallePedidoProveedor WHERE idPedidoProveedor = ? idMaterial = ?";
-    final String GETALL = "SELECT idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal";
-    final String GETONE = "SELECT idPedidoProveedor, idMaterial, descripcion, cantidad, subtotal WHERE idPedidoProveedor = ? idMaterial = ?";
-        
+public class MySQLPedidoProveedorDAO implements PedidoProveedorDAO{
+      final String INSERT = "INSERT INTO PedidoProveedor (idPedidoProveedor, fechaEmision, estado, cuit) VALUES (?, ?, ?, ?)";
+    final String UPDATE = "UPDATE PedidoProveedor SET idPedidoProveedor = ? fechaEmision = ? estado = ?  cuit = ?";
+    final String DELETE = "DELETE FROM PedidoProveedor WHERE idPedidoProveedor = ? ";
+    final String GETALL = "SELECT idPedidoProveedor, fechaEmision, estado, cuit";
+    final String GETONE = "SELECT idPedidoProveedor, fechaEmision, estado, cuit WHERE idPedidoProveedor = ?";
+    
     private Connection conn;
-    
-    public MySQLDetallePedidoProveedorDAO(Connection conn){
-        this.conn =conn;
-        
-    };
 
-  
+    public MySQLPedidoProveedorDAO(Connection conn) {
+        this.conn = conn;
+    }
 
-  
-    
-    
     @Override
-    public void insertar(DetallePedidoProveedor a) throws DAOException { 
-        PreparedStatement stat = null; 
+    public void insertar(PedidoProveedor a) throws DAOException {
+        PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1,a.getId().getIdPedidoProveedor());
-            stat.setLong(2, a.getId().getIdMaterial());
-            stat.setString(3, a.getDescripcion());
-            stat.setInt(4, a.getCantidad());
-            stat.setDouble(5, a.getSubtotal());
-            if(stat.executeUpdate() ==0){
-            throw new DAOException("Puede que no se haya guardado ");
+            stat.setLong(1, a.getIdPedidoProveedor());
+            stat.setDate(2, a.getFechaEmision());
+            stat.setBoolean(3, a.getEstado());
+            stat.setLong(4, a.getCuit());
+            
+            if(stat.executeUpdate() == 0)
+            {   
+                System.out.println("Puede q no se haya guardado");
             }
-        } catch (SQLException ex) {
-            throw new DAOException("Error en SQL", ex);
-        } finally{
+         } catch (SQLException ex) {
+             throw new DAOException("Error en SQL", ex);
+        }finally{
             if(stat != null){
                 try {
                     stat.close();
                 } catch (SQLException ex) {
                     throw new DAOException("Error en SQL", ex);
                 }
-                
-            }
+            } 
         }
-        
     }
-    
-    
-    
-    
 
     @Override
-    public void eliminar(DetallePedidoProveedor a) throws DAOException {
-        PreparedStatement stat = null;
-        try {
+    public void eliminar(PedidoProveedor a) throws DAOException {
+       PreparedStatement stat = null;
+       try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getId().getIdPedidoProveedor());
-            stat.setLong(2, a.getId().getIdMaterial());
-            if(stat.executeUpdate()==0){
-            throw new DAOException("Puede que el alumno no se haya borrado");
+            stat.setLong(1, a.getIdPedidoProveedor());
+            
+            if(stat.executeUpdate() == 0){
+                System.out.println("Puede que no se haya guardado");
             }
         } catch (SQLException ex) {
-            throw new DAOException("Error de SQL",ex);
+            throw new DAOException("Error delete", ex);
         }finally{
             if(stat != null){
                 try {
                     stat.close();
                 } catch (SQLException ex) {
-                    throw new DAOException("Error de SQL",ex);
+                        throw new DAOException("Error delete", ex);
+
                 }
-            }       
+            }
         }
     }
 
     @Override
-    public void modificar(DetallePedidoProveedor a) {
+    public void modificar(PedidoProveedor a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    private DetallePedidoProveedor convertir(ResultSet rs )throws SQLException{
-        DetallePedidoProveedor detalleProv = new DetallePedidoProveedor(null, rs.getString("descripcion"),rs.getInt("cantidad"), rs.getDouble("subtotal"));
-        detalleProv.setId(rs.getLong("idPedidoProveedor"),rs.getLong("idMaterial"));
-        return detalleProv;
-   }
     
     
+    private PedidoProveedor convertir (ResultSet rs) throws SQLException{
+    PedidoProveedor pedido = new PedidoProveedor (null , rs.getDate("fechaEmision"),rs.getBoolean("estado"),rs.getLong("cuit"));
+    pedido.setIdPedidoProveedor(rs.getLong("idPedidoProveedor"));
+    return pedido;
+    
+    }
     @Override
-    public List<DetallePedidoProveedor> obtenerTodos() throws  DAOException{
+    public List<PedidoProveedor> obtenerTodos() throws DAOException {
         PreparedStatement stat = null;
-        ResultSet rs = null;
-        List<DetallePedidoProveedor> detalleProv = new ArrayList<>();
+        ResultSet rs= null;
+        List<PedidoProveedor> pedido = new ArrayList<>();
         try {
             stat = conn.prepareStatement(GETALL);
-            rs = stat.executeQuery();
-            while(rs.next()){
-                detalleProv.add(convertir(rs));
-            }
-         } catch (SQLException ex) {
-            throw new DAOException("Error en SQL",ex);
            
+            
+            rs = stat.executeQuery();
+            if(rs.next()){
+                pedido.add(convertir(rs));
+            }else{
+                throw new DAOException("No se ha encntrado ese registro");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error SQL");
         }finally{
-            if (rs!=null){
+            if(rs != null){
                 try {
                     rs.close();
-                } catch (SQLException  ex) {
-                    new DAOException("Error en SQL", ex);
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
                 }
             }
-            if (stat!=null){
+            if(stat != null){
                 try {
                     stat.close();
-                } catch (SQLException ex) {
-                    new DAOException("Error en SQL", ex);
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
                 }
             }
-       }
-        return detalleProv;
-      
+        }
+        return pedido;
     }
 
     @Override
-    public DetallePedidoProveedor obtener(Id id) throws DAOException {
+    public PedidoProveedor obtener(Long id) throws DAOException {
         PreparedStatement stat = null;
-        ResultSet rs = null;
-        DetallePedidoProveedor p = null;
+        ResultSet rs= null;
+        PedidoProveedor p = null;
         try {
             stat = conn.prepareStatement(GETONE);
-            stat.setLong(1, id.getIdPedidoProveedor() );
-            stat.setLong(2, id.getIdMaterial() );
+            stat.setLong(1, id);
+            
             rs = stat.executeQuery();
             if(rs.next()){
                 p = convertir(rs);
-            }else {
-            throw new DAOException("No se ha encontrado ese registro");
+            }else{
+                throw new DAOException("No se ha encntrado ese registro");
             }
-         } catch (SQLException ex) {
-            throw new DAOException("Error en SQL",ex);
-           
+        } catch (SQLException e) {
+            throw new DAOException("Error SQL");
         }finally{
-            if (rs!=null){
+            if(rs != null){
                 try {
                     rs.close();
-                } catch (SQLException  ex) {
-                    new DAOException("Error en SQL", ex);
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
                 }
             }
-            if (stat!=null){
+            if(stat != null){
                 try {
                     stat.close();
-                } catch (SQLException ex) {
-                    new DAOException("Error en SQL", ex);
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
                 }
             }
-       }
+        }
         return p;
     }
 }
+

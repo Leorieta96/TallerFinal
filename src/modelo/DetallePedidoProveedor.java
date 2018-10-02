@@ -2,6 +2,11 @@ package modelo;
 
 public class DetallePedidoProveedor {
 
+    private Long idPedidoProveedor;
+    private Long idMaterial;
+
+  
+
     public class Id {
 
         private Long idPedidoProveedor;
@@ -29,7 +34,8 @@ public class DetallePedidoProveedor {
         }
 
     }
-    private Id id;
+    private Id id
+            ;
     private String descripcion;
     private int cantidad;
     private double subtotal;
@@ -43,6 +49,13 @@ public class DetallePedidoProveedor {
 
     public Id getId() {
         return id;
+    }
+      public void setId(Long idPedidoProveedor, Long idMaterial) {
+          this.idPedidoProveedor = idPedidoProveedor; 
+          this.idMaterial = idMaterial;
+          
+          
+          
     }
 
     public void setId(Id id) {
