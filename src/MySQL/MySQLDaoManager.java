@@ -90,7 +90,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public ItemCalatalogoDAO getItemCalatalogoDAO() {
         if(itemCalatalogo == null){
-            itemCalatalogo = new MySQLItemCatalogoDAO();
+            itemCalatalogo = new MySQLItemCatalogoDAO(conn);
         }
         return itemCalatalogo;
     }

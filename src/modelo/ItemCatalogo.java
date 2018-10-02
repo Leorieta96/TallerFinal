@@ -1,5 +1,7 @@
 package modelo;
 
+import java.sql.Date;
+
 public class ItemCatalogo {
 
     public class Id {
@@ -40,44 +42,42 @@ public class ItemCatalogo {
 
     }
     private Id id;
-    private Catalogo idCatalogo;
+    private Long idCatalogo;
 
-    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Catalogo idCatalogo) {
-        this.id.precioUnitario = precioUnitario;
-        this.id.nombre = nombre;
-        this.id.marca = marca;
+    public ItemCatalogo(Long precioUnitario, String nombre, String marca, Long idCatalogo) {
+        this.id = new Id(precioUnitario, nombre, marca);
         this.idCatalogo = idCatalogo;
     }
 
     public Long getPrecioUnitario() {
-        return id.precioUnitario;
+        return id.getPrecioUnitario();
     }
 
     public void setPrecioUnitario(Long precioUnitario) {
-        this.id.precioUnitario = precioUnitario;
+        this.id.setPrecioUnitario(precioUnitario); 
     }
 
     public String getNombre() {
-        return id.nombre;
+        return id.getNombre();
     }
 
     public void setNombre(String nombre) {
-        this.id.nombre = nombre;
+        this.id.setNombre(nombre);
     }
 
     public String getMarca() {
-        return id.marca;
+        return id.getMarca();
     }
 
     public void setMarca(String marca) {
-        this.id.marca = marca;
+        this.id.setMarca(marca);
     }
 
-    public Catalogo getIdCatalogo() {
+    public Long getIdCatalogo() {
         return idCatalogo;
     }
 
-    public void setIdCatalogo(Catalogo idCatalogo) {
+    public void setIdCatalogo(Long idCatalogo) {
         this.idCatalogo = idCatalogo;
     }
 

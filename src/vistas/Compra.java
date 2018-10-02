@@ -8,9 +8,22 @@ package vistas;
 import MySQL.MySQLDaoManager;
 import dao.DAOException;
 import dao.DAOManager;
+import dao.ItemCalatalogoDAO;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import modelo.Catalogo;
+import modelo.ItemCatalogo;
+import modelo.Proveedor;
 
 /**
  *
@@ -20,9 +33,12 @@ public class Compra extends javax.swing.JFrame {
 
     private final DAOManager manager;
     private final MaterialEscasoTableModel model;
+    private List<ItemCatalogo> listItemCatalogo = new ArrayList<>();
+    int fila = 0;
 
     /**
      * Creates new form Compra
+     *
      * @param manager
      * @throws dao.DAOException
      */
@@ -31,7 +47,7 @@ public class Compra extends javax.swing.JFrame {
         this.manager = manager;
         this.model = new MaterialEscasoTableModel(manager.getMaterialDAO());
         this.model.updateModel();
-        
+
         //model.addColumn("Seleccionar");
 //        this.jTable1.getColumnModel().getColumn(5).setCellEditor(new CellEditor());
 //        this.jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRender());
@@ -54,6 +70,27 @@ public class Compra extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
+        dialogRecibirCatalgo = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        txtCuitRC = new javax.swing.JTextField();
+        btnBuscarProveedor = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtNombreP = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtDireccionP = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        txtMaterial = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
+        btnAtrasRC = new javax.swing.JButton();
+        btnAgregarTabla = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableItemCatalogo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -116,6 +153,189 @@ public class Compra extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
+        jLabel1.setText("Recibir Catalogo");
+
+        txtCuitRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitRCActionPerformed(evt);
+            }
+        });
+
+        btnBuscarProveedor.setText("Buscar");
+        btnBuscarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProveedorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Cuit Proveedor:");
+
+        jLabel4.setText("Nombre: ");
+
+        jLabel5.setText("Direccion: ");
+
+        jLabel6.setText("Material:");
+
+        jLabel7.setText("Precio:");
+
+        txtMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Marca:");
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnAtrasRC.setText("Atras");
+
+        btnAgregarTabla.setText(">>>");
+        btnAgregarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarTablaActionPerformed(evt);
+            }
+        });
+
+        tableItemCatalogo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Material", "Precio", "Marca"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableItemCatalogo);
+
+        javax.swing.GroupLayout dialogRecibirCatalgoLayout = new javax.swing.GroupLayout(dialogRecibirCatalgo.getContentPane());
+        dialogRecibirCatalgo.getContentPane().setLayout(dialogRecibirCatalgoLayout);
+        dialogRecibirCatalgoLayout.setHorizontalGroup(
+            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtrasRC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(32, 32, 32)
+                                            .addComponent(btnBuscarProveedor)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(163, 163, 163))))
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(446, 446, 446))
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(54, 54, 54)
+                                        .addComponent(btnAgregarTabla)))
+                                .addGap(78, 78, 78)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btnAgregar)
+                .addContainerGap())
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGap(327, 327, 327)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(572, Short.MAX_VALUE))
+        );
+        dialogRecibirCatalgoLayout.setVerticalGroup(
+            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarProveedor)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel7)
+                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregarTabla)))
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtrasRC)
+                    .addComponent(btnAgregar))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Cond", 1, 11)); // NOI18N
@@ -139,6 +359,11 @@ public class Compra extends javax.swing.JFrame {
         btnRecibirPedido.setText("Recibir Pedido");
 
         btnRecibirCatalogo.setText("Recibir catalogo");
+        btnRecibirCatalogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecibirCatalogoActionPerformed(evt);
+            }
+        });
 
         btnProveedor.setText("Proveedores");
         btnProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +431,7 @@ public class Compra extends javax.swing.JFrame {
         dialogRealizarPedido.setVisible(true);
         dialogRealizarPedido.setSize(850, 500);
         dialogRealizarPedido.setLocationRelativeTo(null);
+        DefaultTableModel dtm = new DefaultTableModel();
 
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 
@@ -220,8 +446,83 @@ public class Compra extends javax.swing.JFrame {
         vtnProveedores = new vtnProveedores(manager);
         vtnProveedores.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btnProveedorActionPerformed
+
+    private void btnRecibirCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibirCatalogoActionPerformed
+        // TODO add your handling code here:
+        dialogRecibirCatalgo.setVisible(true);
+        dialogRecibirCatalgo.setSize(800, 650);
+        dialogRecibirCatalgo.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnRecibirCatalogoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        LocalDate todayLocalDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
+        java.sql.Date sqlDate = java.sql.Date.valueOf(todayLocalDate);
+        Catalogo catalogo = new Catalogo(sqlDate, Long.valueOf(txtCuitRC.getText()));
+        
+        try {
+            manager.getCatalogoDAO().insertar(catalogo);
+            Long id = catalogo.getIdCatalogo();
+            int i = 0;
+            for (ItemCatalogo item : listItemCatalogo) {
+                ItemCatalogo itemNew = listItemCatalogo.get(i);
+                itemNew.setIdCatalogo(id);
+                listItemCatalogo.set(i, itemNew);
+                manager.getItemCalatalogoDAO().insertar(item);
+                i++;
+            }
+            fila = 1;
+
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcaActionPerformed
+
+    private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
+        // TODO add your handling code here:
+        Long cuitBuscado;
+        cuitBuscado = Long.valueOf(txtCuitRC.getText());
+        try {
+            Proveedor p = manager.getProveedorDAO().obtener(cuitBuscado);
+            if (p != null) {
+
+                txtNombreP.setText(p.getNombre());
+                txtNombreP.setEditable(false);
+                txtDireccionP.setText(p.getDireccion());
+                txtDireccionP.setEditable(false);
+
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(vtnProveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarProveedorActionPerformed
+
+    private void txtCuitRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitRCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitRCActionPerformed
+
+    private void btnAgregarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTablaActionPerformed
+        // TODO add your handling code here:
+        Long precio = Long.valueOf(txtPrecio.getText());
+        String mat = txtMaterial.getText();
+        String marca = txtMarca.getText();
+        Long id = null;
+        ItemCatalogo item = new ItemCatalogo(precio, mat, marca, id);
+        listItemCatalogo.add(item);
+        
+        tableItemCatalogo.setValueAt(mat, fila, 0);
+        tableItemCatalogo.setValueAt(precio, fila, 1);
+        tableItemCatalogo.setValueAt(marca, fila, 2);
+        txtMaterial.setText("");
+        txtPrecio.setText("");
+        txtMarca.setText("");
+        fila++;
+    }//GEN-LAST:event_btnAgregarTablaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,16 +542,37 @@ public class Compra extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarTabla;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAtrasC;
+    private javax.swing.JButton btnAtrasRC;
+    private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnRealizarPedido;
     private javax.swing.JButton btnRecibirCatalogo;
     private javax.swing.JButton btnRecibirPedido;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JDialog dialogRealizarPedido;
+    private javax.swing.JDialog dialogRecibirCatalgo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableItemCatalogo;
+    private javax.swing.JTextField txtCuitRC;
+    private javax.swing.JTextField txtDireccionP;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMaterial;
+    private javax.swing.JTextField txtNombreP;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
