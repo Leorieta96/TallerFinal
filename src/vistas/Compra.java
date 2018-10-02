@@ -91,6 +91,9 @@ public class Compra extends javax.swing.JFrame {
         btnAgregarTabla = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableItemCatalogo = new javax.swing.JTable();
+        dialogSucces = new javax.swing.JDialog();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -243,7 +246,7 @@ public class Compra extends javax.swing.JFrame {
                         .addComponent(btnAtrasRC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addContainerGap(332, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
                                 .addGap(99, 99, 99)
@@ -287,7 +290,7 @@ public class Compra extends javax.swing.JFrame {
             .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
                 .addGap(327, 327, 327)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         dialogRecibirCatalgoLayout.setVerticalGroup(
             dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,6 +337,39 @@ public class Compra extends javax.swing.JFrame {
                     .addComponent(btnAtrasRC)
                     .addComponent(btnAgregar))
                 .addContainerGap())
+        );
+
+        jLabel9.setText("Succes");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialogSuccesLayout = new javax.swing.GroupLayout(dialogSucces.getContentPane());
+        dialogSucces.getContentPane().setLayout(dialogSuccesLayout);
+        dialogSuccesLayout.setHorizontalGroup(
+            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesLayout.createSequentialGroup()
+                .addGroup(dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogSuccesLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(jLabel9))
+                    .addGroup(dialogSuccesLayout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jButton1)))
+                .addContainerGap(174, Short.MAX_VALUE))
+        );
+        dialogSuccesLayout.setVerticalGroup(
+            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel9)
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -477,6 +513,9 @@ public class Compra extends javax.swing.JFrame {
         } catch (DAOException ex) {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dialogSucces.setVisible(true);
+        dialogSucces.setSize(400,400);
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
@@ -529,6 +568,12 @@ public class Compra extends javax.swing.JFrame {
         fila++;
     }//GEN-LAST:event_btnAgregarTablaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dialogRecibirCatalgo.setVisible(false);
+        dialogSucces.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.sql.SQLException
@@ -560,6 +605,8 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JDialog dialogRealizarPedido;
     private javax.swing.JDialog dialogRecibirCatalgo;
+    private javax.swing.JDialog dialogSucces;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -568,6 +615,7 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
