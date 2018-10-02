@@ -31,11 +31,10 @@ public class MySQLItemCatalogoDAO implements ItemCalatalogoDAO {
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getPrecioUnitario());
-            stat.setString(2, a.getNombre());
-            stat.setString(3, a.getMarca());
-            //stat  falta el set Catalogo ._. 
-
+            stat.setLong(1, a.getId().getPrecioUnitario());
+            stat.setString(2, a.getId().getNombre());
+            stat.setString(3, a.getId().getMarca());
+            stat.setLong(4, a.getIdCatalogo());
             if (stat.executeUpdate() == 0) {
                 System.out.println("Puede q no se haya guardado");
             }
@@ -57,9 +56,9 @@ public class MySQLItemCatalogoDAO implements ItemCalatalogoDAO {
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(DELETE);
-            stat.setLong(1, a.getPrecioUnitario());
-            stat.setString(2, a.getNombre());
-            stat.setString(3, a.getMarca());
+            stat.setLong(1, a.getId().getPrecioUnitario());
+            stat.setString(2, a.getId().getNombre());
+            stat.setString(3, a.getId().getMarca());
             if (stat.executeUpdate() == 0) {
                 System.out.println("Puede que no se haya guardado");
             }

@@ -39,38 +39,21 @@ public class ItemCatalogo {
         }
 
     }
+    
     private Id id;
     private Long idCatalogo;
 
     public ItemCatalogo(Long precioUnitario, String nombre, String marca, Long idCatalogo) {
-        this.id.precioUnitario = precioUnitario;
-        this.id.nombre = nombre;
-        this.id.marca = marca;
+        this.id = new Id(precioUnitario, nombre, marca);
         this.idCatalogo = idCatalogo;
     }
 
-    public Long getPrecioUnitario() {
-        return id.precioUnitario;
+    public Id getId() {
+        return id;
     }
 
-    public void setPrecioUnitario(Long precioUnitario) {
-        this.id.precioUnitario = precioUnitario;
-    }
-
-    public String getNombre() {
-        return id.nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.id.nombre = nombre;
-    }
-
-    public String getMarca() {
-        return id.marca;
-    }
-
-    public void setMarca(String marca) {
-        this.id.marca = marca;
+    public void setId(Id id) {
+        this.id = id;
     }
 
     public Long getIdCatalogo() {
