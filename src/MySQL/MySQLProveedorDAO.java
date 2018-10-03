@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Proveedor;
 
@@ -16,6 +17,7 @@ public class MySQLProveedorDAO implements ProveedorDAO {
             + "`telefono` = ?, `direccion` = ? ,`rubro` = ? "
             + "WHERE `proveedor`.`cuit` = ?";
     final String GETONE = "SELECT cuit, nombre, telefono, direccion, rubro FROM proveedor WHERE cuit = ?";
+    final String GETxRUBRO = "SELECT * FROM `proveedor` WHERE `rubro` = ? ";
 
     private Connection conn;
 
@@ -126,7 +128,35 @@ public class MySQLProveedorDAO implements ProveedorDAO {
     }
 
     @Override
-    public List<Proveedor> obtenerXrubros(String rubro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public List<Proveedor> obtenerXrubros(String rubro) throws DAOException{
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Proveedor> proveedores = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(GETxRUBRO);
+            stat.setString(1, rubro);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                proveedores.add(convertir(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return proveedores;
+        }
 }

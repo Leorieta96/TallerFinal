@@ -6,9 +6,13 @@
 package vistas;
 
 import MySQL.MySQLDaoManager;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import dao.DAOException;
 import dao.DAOManager;
 import dao.ItemCalatalogoDAO;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +24,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.RadioButton;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import modelo.Catalogo;
 import modelo.ItemCatalogo;
 import modelo.Material;
@@ -38,6 +50,7 @@ public class Compra extends javax.swing.JFrame {
     int fila = 0;
     Object[][] datosTable = null;
     List<Object> datosComprar = new ArrayList<>();
+    List<Proveedor> proveedores = new ArrayList<>();
 
     /**
      * Creates new form Compra
@@ -92,7 +105,14 @@ public class Compra extends javax.swing.JFrame {
         btnAtrasRPO = new javax.swing.JButton();
         btnSiguienteRPO = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableProveedoresxRubro = new javax.swing.JTable();
+        btnPVC = new javax.swing.JButton();
+        btnFerreteria = new javax.swing.JButton();
+        btnElectricidad = new javax.swing.JButton();
+        btnConstruccion = new javax.swing.JButton();
+        btnPintureria = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        labelRubro = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -376,11 +396,18 @@ public class Compra extends javax.swing.JFrame {
                 .addContainerGap(152, Short.MAX_VALUE))
         );
 
+        dialogRealizarPedidoOne.setSize(new java.awt.Dimension(100, 25));
+
         btnAtrasRPO.setText("Atras");
 
         btnSiguienteRPO.setText("Siguiente");
+        btnSiguienteRPO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteRPOActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableProveedoresxRubro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -388,37 +415,115 @@ public class Compra extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cuit", "Nombre", "Telefono", "Direccion"
             }
-        ));
-        jScrollPane3.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableProveedoresxRubro);
+        if (tableProveedoresxRubro.getColumnModel().getColumnCount() > 0) {
+            tableProveedoresxRubro.getColumnModel().getColumn(0).setResizable(false);
+            tableProveedoresxRubro.getColumnModel().getColumn(1).setResizable(false);
+            tableProveedoresxRubro.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        btnPVC.setText("PVC");
+        btnPVC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPVCActionPerformed(evt);
+            }
+        });
+
+        btnFerreteria.setText("Ferreteria");
+        btnFerreteria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFerreteriaActionPerformed(evt);
+            }
+        });
+
+        btnElectricidad.setText("Electricidad");
+        btnElectricidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElectricidadActionPerformed(evt);
+            }
+        });
+
+        btnConstruccion.setText("Construccion");
+        btnConstruccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConstruccionActionPerformed(evt);
+            }
+        });
+
+        btnPintureria.setText("Pintureria");
+        btnPintureria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPintureriaActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Seleccionar Rubro:");
 
         javax.swing.GroupLayout dialogRealizarPedidoOneLayout = new javax.swing.GroupLayout(dialogRealizarPedidoOne.getContentPane());
         dialogRealizarPedidoOne.getContentPane().setLayout(dialogRealizarPedidoOneLayout);
         dialogRealizarPedidoOneLayout.setHorizontalGroup(
             dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAtrasRPO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSiguienteRPO)
+                .addGroup(dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAtrasRPO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE)
+                        .addComponent(btnSiguienteRPO))
+                    .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                                .addComponent(btnPVC)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFerreteria)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnElectricidad)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnConstruccion)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPintureria))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(283, 283, 283)
+                .addComponent(labelRubro)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dialogRealizarPedidoOneLayout.setVerticalGroup(
             dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRealizarPedidoOneLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
                 .addGroup(dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSiguienteRPO)
-                    .addComponent(btnAtrasRPO)))
+                    .addComponent(btnPVC)
+                    .addComponent(btnFerreteria)
+                    .addComponent(btnElectricidad)
+                    .addComponent(btnConstruccion)
+                    .addComponent(btnPintureria))
+                .addGap(18, 18, 18)
+                .addComponent(labelRubro)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtrasRPO)
+                    .addComponent(btnSiguienteRPO))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -540,7 +645,6 @@ public class Compra extends javax.swing.JFrame {
         dialogRealizarPedido.setSize(850, 600);
         dialogRealizarPedido.setLocationRelativeTo(null);
 
-
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -650,14 +754,153 @@ public class Compra extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
         int j = 0;
-        for(Material m: model.getDatos()){
-            if(jTable1.getValueAt(j, 6).equals(true))
+        for (Material m : model.getDatos()) {
+            if (jTable1.getValueAt(j, 6).equals(true)) {
                 datosComprar.add(m);
-           j++;
+            }
+            j++;
         }
-        jTable1.setVisible(false);
-        
+        dialogRealizarPedidoOne.setVisible(true);
+        dialogRealizarPedido.setSize(800, 500);
+        dialogRealizarPedido.setVisible(false);
+
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnPVCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPVCActionPerformed
+        // TODO add your handling code here:
+        labelRubro.setText(btnPVC.getText());
+        try {
+            setTableProveedor(btnPVC.getText());
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPVCActionPerformed
+
+    private void btnFerreteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFerreteriaActionPerformed
+        // TODO add your handling code here:
+        labelRubro.setText(btnFerreteria.getText());
+        try {
+            setTableProveedor(btnFerreteria.getText());
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFerreteriaActionPerformed
+
+    private void btnElectricidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElectricidadActionPerformed
+        // TODO add your handling code here:
+        labelRubro.setText(btnElectricidad.getText());
+        try {
+            setTableProveedor(btnElectricidad.getText());
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnElectricidadActionPerformed
+
+    private void btnConstruccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstruccionActionPerformed
+        // TODO add your handling code here:
+        labelRubro.setText(btnConstruccion.getText());
+        try {
+            setTableProveedor(btnConstruccion.getText());
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnConstruccionActionPerformed
+
+    private void btnPintureriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPintureriaActionPerformed
+        // TODO add your handling code here:
+        labelRubro.setText(btnPintureria.getText());
+        try {
+            setTableProveedor(btnPintureria.getText());
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPintureriaActionPerformed
+
+    private void btnSiguienteRPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRPOActionPerformed
+        // TODO add your handling code here:
+        Proveedor p = proveedores.get(tableProveedoresxRubro.getSelectedRow());
+    }//GEN-LAST:event_btnSiguienteRPOActionPerformed
+
+    public void setTableProveedor(String rubro) throws DAOException {
+        String[] columnas = new String[]{
+            "Cuit",
+            "Nombre",
+            "Telefono",
+            "Direccion",
+            //"Seleccionar"
+        };
+
+        final Class[] tiposColumnas = new Class[]{
+            java.lang.Long.class,
+            java.lang.String.class,
+            java.lang.Long.class,
+            java.lang.String.class,
+            //JButton.class
+        };
+
+        proveedores = manager.getProveedorDAO().obtenerXrubros(rubro);
+        Object[][] datos = new Object[proveedores.size()][5];
+        int i = 0;
+        for (Proveedor p : proveedores) {
+            datos[i][0] = p.getCuit();
+            datos[i][1] = p.getNombre();
+            datos[i][2] = p.getTelefono();
+            datos[i][3] = p.getDireccion();
+            //datos[i][4] = new JButton("Seleccionar");
+            i++;
+        }
+        tableProveedoresxRubro.setModel(new javax.swing.table.DefaultTableModel(datos, columnas) {
+            Class[] tipos = tiposColumnas;
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return tipos[columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Sobrescribimos este método para evitar que la columna que contiene los botones sea editada.
+                return column == 4;
+            }
+        });
+//        tableProveedoresxRubro.setDefaultRenderer(JButton.class, new TableCellRenderer() {
+//
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                return (Component) value;
+//            }
+//        });
+
+//        tableProveedoresxRubro.addMouseListener(new MouseAdapter() {
+//
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                int fila = tableProveedoresxRubro.rowAtPoint(e.getPoint());
+//                int columna = tableProveedoresxRubro.columnAtPoint(e.getPoint());
+//
+//                /**
+//                 * Preguntamos si hicimos clic sobre la celda que contiene el
+//                 * botón, si tuviéramos más de un botón por fila tendríamos que
+//                 * además preguntar por el contenido del botón o el nombre de la
+//                 * columna
+//                 */
+//                if (tableProveedoresxRubro.getModel().getColumnClass(columna).equals(JButton.class)) {
+//                    /**
+//                     * Aquí pueden poner lo que quieran, para efectos de este
+//                     * ejemplo, voy a mostrar en un cuadro de dialogo todos los
+//                     * campos de la fila que no sean un botón.
+//                     */
+//                    StringBuilder sb = new StringBuilder();
+//                    for (int i = 0; i < tableProveedoresxRubro.getModel().getColumnCount(); i++) {
+//                        if (!tableProveedoresxRubro.getModel().getColumnClass(i).equals(JButton.class)) {
+//                            sb.append("\n").append(tableProveedoresxRubro.getModel().getColumnName(i)).append(": ").append(tableProveedoresxRubro.getModel().getValueAt(fila, i));
+//                        }
+//                    }
+//                }
+//            }
+//
+//        });
+    }
 
     /**
      * @param args the command line arguments
@@ -684,6 +927,11 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JButton btnAtrasRC;
     private javax.swing.JButton btnAtrasRPO;
     private javax.swing.JButton btnBuscarProveedor;
+    private javax.swing.JButton btnConstruccion;
+    private javax.swing.JButton btnElectricidad;
+    private javax.swing.JButton btnFerreteria;
+    private javax.swing.JButton btnPVC;
+    private javax.swing.JButton btnPintureria;
     private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnRealizarPedido;
     private javax.swing.JButton btnRecibirCatalogo;
@@ -696,6 +944,7 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JDialog dialogSucces;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -709,8 +958,9 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel labelRubro;
     private javax.swing.JTable tableItemCatalogo;
+    private javax.swing.JTable tableProveedoresxRubro;
     private javax.swing.JTextField txtCuitRC;
     private javax.swing.JTextField txtDireccionP;
     private javax.swing.JTextField txtMarca;
