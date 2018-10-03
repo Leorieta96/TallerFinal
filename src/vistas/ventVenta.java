@@ -5,11 +5,36 @@
  */
 package vistas;
 
+import MySQL.MySQLDaoManager;
+import dao.DAOException;
+import dao.DAOManager;
+import dao.ItemCalatalogoDAO;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import modelo.Catalogo;
+import modelo.ItemCatalogo;
+import modelo.Proveedor;
+
+
+
 /**
  *
  * @author Lucas
  */
 public class ventVenta extends javax.swing.JFrame {
+   
+    
+    
 
     /**
      * Creates new form vtcompra
@@ -37,10 +62,12 @@ public class ventVenta extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        DialogoGenerarPresupuesto = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         jLabel3.setText("Realizar Pedido");
 
@@ -117,6 +144,17 @@ public class ventVenta extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout DialogoGenerarPresupuestoLayout = new javax.swing.GroupLayout(DialogoGenerarPresupuesto.getContentPane());
+        DialogoGenerarPresupuesto.getContentPane().setLayout(DialogoGenerarPresupuestoLayout);
+        DialogoGenerarPresupuestoLayout.setHorizontalGroup(
+            DialogoGenerarPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        DialogoGenerarPresupuestoLayout.setVerticalGroup(
+            DialogoGenerarPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Venta sin presupuesto");
@@ -134,8 +172,20 @@ public class ventVenta extends javax.swing.JFrame {
         });
 
         jButton3.setText("Generar presupuesto");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Seleccionar tipo de Venta");
+
+        jButton4.setText("Atras");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,6 +204,10 @@ public class ventVenta extends javax.swing.JFrame {
                         .addGap(294, 294, 294)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(103, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +219,9 @@ public class ventVenta extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(106, 106, 106))
+                .addGap(68, 68, 68)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
 
         pack();
@@ -184,6 +240,26 @@ public class ventVenta extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        DialogoGenerarPresupuesto.setTitle("Generar Presupuesto");
+        DialogoGenerarPresupuesto.setVisible(true);
+        DialogoGenerarPresupuesto.setSize(800, 500);
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+          home ventaHome;
+        try {
+            ventaHome = new home();
+            ventaHome.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,10 +298,12 @@ public class ventVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog DialogoGenerarPresupuesto;
     private javax.swing.JDialog DialogoVentaSinPresupuesto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
