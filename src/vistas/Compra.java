@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import modelo.Catalogo;
 import modelo.ItemCatalogo;
+import modelo.Material;
 import modelo.Proveedor;
 
 /**
@@ -32,9 +33,11 @@ import modelo.Proveedor;
 public class Compra extends javax.swing.JFrame {
 
     private final DAOManager manager;
-    private final MaterialEscasoTableModel model;
+    private MaterialEscasoTableModel model;
     private List<ItemCatalogo> listItemCatalogo = new ArrayList<>();
     int fila = 0;
+    Object[][] datosTable = null;
+    List<Object> datosComprar = new ArrayList<>();
 
     /**
      * Creates new form Compra
@@ -45,15 +48,6 @@ public class Compra extends javax.swing.JFrame {
     public Compra(DAOManager manager) throws DAOException {
         initComponents();
         this.manager = manager;
-        this.model = new MaterialEscasoTableModel(manager.getMaterialDAO());
-        this.model.updateModel();
-
-        //model.addColumn("Seleccionar");
-//        this.jTable1.getColumnModel().getColumn(5).setCellEditor(new CellEditor());
-//        this.jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRender());
-        this.jTable1.setModel(model);
-//        JScrollPane  scroll = new JScrollPane(jTable1);
-//        jTable1.setPreferredScrollableViewportSize(new Dimension(500,70));
     }
 
     /**
@@ -94,6 +88,11 @@ public class Compra extends javax.swing.JFrame {
         dialogSucces = new javax.swing.JDialog();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        dialogRealizarPedidoOne = new javax.swing.JDialog();
+        btnAtrasRPO = new javax.swing.JButton();
+        btnSiguienteRPO = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -128,6 +127,11 @@ public class Compra extends javax.swing.JFrame {
         });
 
         btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dialogRealizarPedidoLayout = new javax.swing.GroupLayout(dialogRealizarPedido.getContentPane());
         dialogRealizarPedido.getContentPane().setLayout(dialogRealizarPedidoLayout);
@@ -341,7 +345,7 @@ public class Compra extends javax.swing.JFrame {
 
         jLabel9.setText("Succes");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -360,7 +364,7 @@ public class Compra extends javax.swing.JFrame {
                     .addGroup(dialogSuccesLayout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(jButton1)))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         dialogSuccesLayout.setVerticalGroup(
             dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,6 +374,51 @@ public class Compra extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(jButton1)
                 .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        btnAtrasRPO.setText("Atras");
+
+        btnSiguienteRPO.setText("Siguiente");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        javax.swing.GroupLayout dialogRealizarPedidoOneLayout = new javax.swing.GroupLayout(dialogRealizarPedidoOne.getContentPane());
+        dialogRealizarPedidoOne.getContentPane().setLayout(dialogRealizarPedidoOneLayout);
+        dialogRealizarPedidoOneLayout.setHorizontalGroup(
+            dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAtrasRPO)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSiguienteRPO)
+                .addContainerGap())
+            .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        dialogRealizarPedidoOneLayout.setVerticalGroup(
+            dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRealizarPedidoOneLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRealizarPedidoOneLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(dialogRealizarPedidoOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSiguienteRPO)
+                    .addComponent(btnAtrasRPO)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -464,10 +513,33 @@ public class Compra extends javax.swing.JFrame {
 
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
         // TODO add your handling code here:
+        String[] columnas = new String[]{
+            "Id Material",
+            "Nombre",
+            "Descripcion",
+            "Stock Material",
+            "Precio Unitario",
+            "Rubro",
+            "Seleccionar"};
+        this.model = new MaterialEscasoTableModel(manager.getMaterialDAO());
+        try {
+            this.model.updateModel();
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //this.jTable1.setModel(model);
+        model.setDatoss();
+        datosTable = model.getDatoss();
+        this.jTable1.setModel(new javax.swing.table.DefaultTableModel(datosTable, columnas));
+        this.jTable1.getColumnModel().getColumn(6).setCellEditor(new CellEditor());
+        this.jTable1.getColumnModel().getColumn(6).setCellRenderer(new CellRender());
+
+//        JScrollPane  scroll = new JScrollPane(jTable1);
+//        jTable1.setPreferredScrollableViewportSize(new Dimension(500,70));
         dialogRealizarPedido.setVisible(true);
-        dialogRealizarPedido.setSize(850, 500);
+        dialogRealizarPedido.setSize(850, 600);
         dialogRealizarPedido.setLocationRelativeTo(null);
-        DefaultTableModel dtm = new DefaultTableModel();
+
 
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 
@@ -514,8 +586,9 @@ public class Compra extends javax.swing.JFrame {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
         dialogSucces.setVisible(true);
-        dialogSucces.setSize(400,400);
-        
+        dialogSucces.setSize(200, 200);
+        dialogSucces.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
@@ -539,7 +612,7 @@ public class Compra extends javax.swing.JFrame {
                 vtnProveedores vtnProveedores;
                 vtnProveedores = new vtnProveedores(manager);
                 vtnProveedores.setVisible(true);
-                
+
             }
         } catch (DAOException ex) {
             Logger.getLogger(vtnProveedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -574,6 +647,18 @@ public class Compra extends javax.swing.JFrame {
         dialogSucces.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+        int j = 0;
+        for(Material m: model.getDatos()){
+            if(jTable1.getValueAt(j, 6).equals(true))
+                datosComprar.add(m);
+           j++;
+        }
+        jTable1.setVisible(false);
+        
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.sql.SQLException
@@ -597,13 +682,16 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAtrasC;
     private javax.swing.JButton btnAtrasRC;
+    private javax.swing.JButton btnAtrasRPO;
     private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnProveedor;
     private javax.swing.JButton btnRealizarPedido;
     private javax.swing.JButton btnRecibirCatalogo;
     private javax.swing.JButton btnRecibirPedido;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnSiguienteRPO;
     private javax.swing.JDialog dialogRealizarPedido;
+    private javax.swing.JDialog dialogRealizarPedidoOne;
     private javax.swing.JDialog dialogRecibirCatalgo;
     private javax.swing.JDialog dialogSucces;
     private javax.swing.JButton jButton1;
@@ -618,8 +706,10 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTable tableItemCatalogo;
     private javax.swing.JTextField txtCuitRC;
     private javax.swing.JTextField txtDireccionP;

@@ -14,7 +14,7 @@ import modelo.Material;
 
 public class MySQLMaterialDAO implements MaterialDAO {
 
-    final String INSERT = "INSERT INTO catalogo (fecha, cuit) VALUES ( ?, ?)";
+    final String INSERT = "INSERT INTO `material` (`nombre`, `descripcion`, `stockMaterial`, `precioUnitarioM`, `rubro`) VALUES ( ?, ?, ?, ?, ?)";
     final String UPDATE = "UPDATE catalogo SET fecha = ?";
     final String DELETE = "DELETE FROM catalogo WHERE idCatalogo = ?";
     final String GETALL = "SELECT * FROM `material`";
@@ -118,7 +118,7 @@ public class MySQLMaterialDAO implements MaterialDAO {
 //    }
     private Material convertir(ResultSet rs) throws SQLException {
         Long id = (long) rs.getInt("idMaterial");
-        Material material = new Material(id, rs.getString("tipoMaterial"), rs.getString("descripcion"), rs.getInt("stockMaterial"), (long) rs.getInt("precioUnitarioM"));
+        Material material = new Material(id, rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("stockMaterial"), (long) rs.getInt("precioUnitarioM"), rs.getString("rubro"));
         return material;
     }
 

@@ -2,17 +2,19 @@ package modelo;
 
 public class Material {
     private Long idMaterial;
-    private String tipoMaterial;
+    private String nombre;
     private String descripcion;
     private int stockMaterial;
     private long precioUnitario;
+    private String rubro;
 
-    public Material(Long idMaterial, String tipoMaterial, String descripcion, int stockMaterial, long precioUnitario) {
+    public Material(Long idMaterial, String nombre, String descripcion, int stockMaterial, long precioUnitario, String rubro) {
         this.idMaterial = idMaterial;
-        this.tipoMaterial = tipoMaterial;
+        this.nombre = nombre;
         this.descripcion = descripcion;
         this.stockMaterial = stockMaterial;
         this.precioUnitario = precioUnitario;
+        this.rubro = rubro;
     }
 
     public Long getidMaterial() {
@@ -23,8 +25,8 @@ public class Material {
         this.idMaterial = idMaterial;
     }
 
-    public String getTipoMaterial() {
-        return tipoMaterial;
+    public String getNombre() {
+        return nombre;
     }
 
     public int getStockMaterial() {
@@ -35,8 +37,8 @@ public class Material {
         this.stockMaterial = stockMaterial;
     }
     
-    public void setTipoMaterial(String tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getdescripcion() {
@@ -55,8 +57,17 @@ public class Material {
         this.precioUnitario = precioUnitario;
     }
 
+    public String getRubro() {
+        return rubro;
+    }
+
+    public void setRubro(String rubro) {
+        this.rubro = rubro;
+    }
+
+    
     @Override
     public String toString() {
-        return "Material{" + "idMaterial=" + idMaterial + ", tipoMaterial=" + tipoMaterial + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario + '}';
+        return "Material{" + "idMaterial=" + idMaterial + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario + '}';
     }
 }
