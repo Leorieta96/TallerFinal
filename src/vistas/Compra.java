@@ -51,6 +51,7 @@ public class Compra extends javax.swing.JFrame {
     Object[][] datosTable = null;
     List<Object> datosComprar = new ArrayList<>();
     List<Proveedor> proveedores = new ArrayList<>();
+    Proveedor proveedorCompra; 
 
     /**
      * Creates new form Compra
@@ -113,6 +114,10 @@ public class Compra extends javax.swing.JFrame {
         btnPintureria = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         labelRubro = new javax.swing.JLabel();
+        dialogRealizarPedidoTwo = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -526,6 +531,40 @@ public class Compra extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel11.setText("Pedido");
+
+        jLabel12.setText("Proveedor:");
+
+        jLabel13.setText("Dirección: ");
+
+        javax.swing.GroupLayout dialogRealizarPedidoTwoLayout = new javax.swing.GroupLayout(dialogRealizarPedidoTwo.getContentPane());
+        dialogRealizarPedidoTwo.getContentPane().setLayout(dialogRealizarPedidoTwoLayout);
+        dialogRealizarPedidoTwoLayout.setHorizontalGroup(
+            dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                        .addGap(271, 271, 271)
+                        .addComponent(jLabel11))
+                    .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12))))
+                .addContainerGap(310, Short.MAX_VALUE))
+        );
+        dialogRealizarPedidoTwoLayout.setVerticalGroup(
+            dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addContainerGap(448, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Tekton Pro Cond", 1, 11)); // NOI18N
@@ -818,7 +857,7 @@ public class Compra extends javax.swing.JFrame {
 
     private void btnSiguienteRPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRPOActionPerformed
         // TODO add your handling code here:
-        Proveedor p = proveedores.get(tableProveedoresxRubro.getSelectedRow());
+        proveedorCompra = proveedores.get(tableProveedoresxRubro.getSelectedRow());
     }//GEN-LAST:event_btnSiguienteRPOActionPerformed
 
     public void setTableProveedor(String rubro) throws DAOException {
@@ -826,16 +865,14 @@ public class Compra extends javax.swing.JFrame {
             "Cuit",
             "Nombre",
             "Telefono",
-            "Direccion",
-            //"Seleccionar"
+            "Direccion", //"Seleccionar"
         };
 
         final Class[] tiposColumnas = new Class[]{
             java.lang.Long.class,
             java.lang.String.class,
             java.lang.Long.class,
-            java.lang.String.class,
-            //JButton.class
+            java.lang.String.class, //JButton.class
         };
 
         proveedores = manager.getProveedorDAO().obtenerXrubros(rubro);
@@ -940,11 +977,15 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JButton btnSiguienteRPO;
     private javax.swing.JDialog dialogRealizarPedido;
     private javax.swing.JDialog dialogRealizarPedidoOne;
+    private javax.swing.JDialog dialogRealizarPedidoTwo;
     private javax.swing.JDialog dialogRecibirCatalgo;
     private javax.swing.JDialog dialogSucces;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
