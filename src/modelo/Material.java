@@ -5,7 +5,7 @@ public class Material {
     private String nombre;
     private String descripcion;
     private int stockMaterial;
-    private long precioUnitario;
+    private Long precioUnitario;
     private String rubro;
 
     public Material(Long idMaterial, String nombre, String descripcion, int stockMaterial, long precioUnitario, String rubro) {
@@ -53,7 +53,7 @@ public class Material {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(long precioUnitario) {
+    public void setPrecioUnitario(Long precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
