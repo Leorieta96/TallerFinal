@@ -62,6 +62,11 @@ public class home extends javax.swing.JFrame {
         });
 
         btnInforme.setText("Informes");
+        btnInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("SIAC");
 
@@ -138,11 +143,21 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-       ventVenta ventanaVenta = new ventVenta();
-       ventanaVenta.setVisible(true);
-       ventanaVenta.setSize(800, 500);
-       this.dispose();
+        ventVenta ventanaVenta;
+        try {
+            ventanaVenta = new ventVenta(manager);
+            ventanaVenta.setVisible(true);
+            ventanaVenta.setSize(800, 500);
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.dispose();
     }//GEN-LAST:event_btnVentaActionPerformed
+
+    private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInformeActionPerformed
 
     /**
      * @param args the command line arguments

@@ -55,17 +55,6 @@ public class MySQLDaoManager implements dao.DAOManager{
         return catalogo;
     }
 
-    public PresupuestoDAO getPresupuesto() {
-        if(presupuesto == null){
-            presupuesto= new MySQLPresupuestoDAO(conn);
-        }
-        return presupuesto;
-    }
-
-    public void setPresupuesto(PresupuestoDAO presupuesto) {
-        this.presupuesto = presupuesto;
-    }
-    
 
     @Override
     public ClienteDAO getClienteDAO() {
@@ -143,4 +132,11 @@ public class MySQLDaoManager implements dao.DAOManager{
 //        List<Catalogo> catalogos = man.getCatalogoDAO().obtenerTodos();
 //        System.out.println(catalogos);
 //    }
+
+    @Override
+    public PresupuestoDAO getPresupuestoDAO() {
+        if(presupuesto == null){
+            presupuesto= new MySQLPresupuestoDAO(conn);
+        }
+        return presupuesto;}
 }

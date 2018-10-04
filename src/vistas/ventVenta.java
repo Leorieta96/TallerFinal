@@ -34,15 +34,17 @@ import modelo.Proveedor;
  */
 public class ventVenta extends javax.swing.JFrame {
    
-    private final DAOManager Manager;
+    private static DAOManager manager;
     
     
 
     /**
      * Creates new form vtcompra
      */
-    public ventVenta() {
+    public ventVenta(DAOManager manager) throws SQLException {
+        ventVenta.manager = manager;
         initComponents();
+        
     }
 
     /**
@@ -345,7 +347,7 @@ public class ventVenta extends javax.swing.JFrame {
         Long ID= Long.valueOf(TxtIDPresupuesto.getText());
         Presupuesto P=null;
         try {
-            P=Manager.getPresupuestoDAO().obtener(ID);
+            P=manager.getPresupuestoDAO().obtener(ID);
         } catch (DAOException ex) {
             Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
         } if(P!=null){
@@ -385,7 +387,11 @@ public class ventVenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventVenta().setVisible(true);
+                try {
+                    new ventVenta(manager).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
