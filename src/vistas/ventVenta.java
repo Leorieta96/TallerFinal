@@ -323,11 +323,24 @@ public class ventVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        DialogoGenerarPresupuesto.setTitle("Generar Presupuesto");
-        DialogoGenerarPresupuesto.setVisible(true);
-        DialogoGenerarPresupuesto.setSize(800, 500);
-        
-        this.dispose();
+        try {
+            presupuesto ventanaVenta;
+            ventanaVenta = new presupuesto(manager);
+            ventanaVenta.setVisible(true);
+            ventanaVenta.setSize(800, 500);
+            
+            this.dispose();
+            
+            
+            
+            DialogoGenerarPresupuesto.setTitle("Generar Presupuesto");
+            
+           
+            
+           
+        } catch (DAOException ex) {
+            Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
