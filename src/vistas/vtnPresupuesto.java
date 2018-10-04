@@ -19,7 +19,6 @@ import modelo.Presupuesto;
 import vistas.home;
 import vistas.ventVenta;
 
-
 /**
  *
  * @author Lucas
@@ -28,6 +27,7 @@ public class vtnPresupuesto extends javax.swing.JFrame {
 
     private final DAOManager manager;
     private List<Material> listamateriales = new ArrayList<>();
+     private List<Material> listseleccionados = new ArrayList<>();
     int fila = 0;
     float total = 0;
 
@@ -377,6 +377,13 @@ public class vtnPresupuesto extends javax.swing.JFrame {
             Logger.getLogger(vtnPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        int i=0;
+        for(Material m : listamateriales)
+        
+        
+        
+        
+        
         succes.setVisible(true);
         succes.setSize(200, 200);
 
@@ -391,15 +398,13 @@ public class vtnPresupuesto extends javax.swing.JFrame {
         succes.dispose();
 
         this.dispose();
-            
-       
+
         try {
-            
+
             ventVenta v = new ventVenta(manager);
-            
-            
+
             v.setVisible(true);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(vtnPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
