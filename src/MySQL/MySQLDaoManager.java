@@ -55,6 +55,18 @@ public class MySQLDaoManager implements dao.DAOManager{
         return catalogo;
     }
 
+    public PresupuestoDAO getPresupuesto() {
+        if(presupuesto == null){
+            presupuesto= new MySQLPresupuestoDAO(conn);
+        }
+        return presupuesto;
+    }
+
+    public void setPresupuesto(PresupuestoDAO presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+    
+
     @Override
     public ClienteDAO getClienteDAO() {
         if(cliente == null){

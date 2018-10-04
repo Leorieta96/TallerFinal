@@ -21,4 +21,5 @@ public interface DAOManager {
     PedidoClienteDAO getPedidoClienteDAO();
     PedidoProveedorDAO getPedidoProveedorDAO();
     ProveedorDAO getProveedorDAO();
+    PresupuestoDAO getPresupuestoDAO();
 }
