@@ -6,12 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.PedidoProveedor;
 
 public class MySQLPedidoProveedorDAO implements PedidoProveedorDAO{
-      final String INSERT = "INSERT INTO PedidoProveedor (idPedidoProveedor, fechaEmision, estado, cuit) VALUES (?, ?, ?, ?)";
+      final String INSERT = "INSERT INTO PedidoProveedor (fechaEmision, estado, cuit) VALUES ( ?, ?, ?)";
     final String UPDATE = "UPDATE PedidoProveedor SET idPedidoProveedor = ? fechaEmision = ? estado = ?  cuit = ?";
     final String DELETE = "DELETE FROM PedidoProveedor WHERE idPedidoProveedor = ? ";
     final String GETALL = "SELECT idPedidoProveedor, fechaEmision, estado, cuit";
@@ -26,16 +27,20 @@ public class MySQLPedidoProveedorDAO implements PedidoProveedorDAO{
     @Override
     public void insertar(PedidoProveedor a) throws DAOException {
         PreparedStatement stat = null;
+        ResultSet rs = null;
         try {
-            stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getIdPedidoProveedor());
-            stat.setDate(2, a.getFechaEmision());
-            stat.setBoolean(3, a.getEstado());
-            stat.setLong(4, a.getCuit());
-            
+            stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+            stat.setDate(1, a.getFechaEmision());
+            stat.setBoolean(2, a.getEstado());
+            stat.setLong(3, a.getCuit());
             if(stat.executeUpdate() == 0)
             {   
                 System.out.println("Puede q no se haya guardado");
+            }rs = stat.getGeneratedKeys();
+            if (rs.next()) {
+                a.setIdPedidoProveedor(rs.getLong(1));
+            } else {
+                throw new DAOException("Puede que no se haya generado");
             }
          } catch (SQLException ex) {
              throw new DAOException("Error en SQL", ex);

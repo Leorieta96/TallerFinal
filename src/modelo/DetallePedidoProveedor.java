@@ -34,14 +34,14 @@ public class DetallePedidoProveedor {
         }
 
     }
-    private Id id
-            ;
+    
+    private Id id;
     private String descripcion;
     private int cantidad;
     private double subtotal;
 
-    public DetallePedidoProveedor(Id id, String descripcion, int cantidad, double subtotal) {
-        this.id = id;
+    public DetallePedidoProveedor(Long idPedidoProveedor, Long idMaterial, String descripcion, int cantidad, double subtotal) {
+        this.id = new Id(idPedidoProveedor,idMaterial);
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
@@ -53,9 +53,7 @@ public class DetallePedidoProveedor {
       public void setId(Long idPedidoProveedor, Long idMaterial) {
           this.idPedidoProveedor = idPedidoProveedor; 
           this.idMaterial = idMaterial;
-          
-          
-          
+
     }
 
     public void setId(Id id) {

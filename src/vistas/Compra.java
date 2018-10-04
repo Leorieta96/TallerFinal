@@ -31,11 +31,15 @@ import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import modelo.Catalogo;
+import modelo.DetallePedidoProveedor;
+import modelo.DetallePedidoProveedor.Id;
 import modelo.ItemCatalogo;
 import modelo.Material;
+import modelo.PedidoProveedor;
 import modelo.Proveedor;
 
 /**
@@ -50,8 +54,9 @@ public class Compra extends javax.swing.JFrame {
     int fila = 0;
     Object[][] datosTable = null;
     List<Object> datosComprar = new ArrayList<>();
+    List<Material> datosComprarM = new ArrayList<>();
     List<Proveedor> proveedores = new ArrayList<>();
-    Proveedor proveedorCompra; 
+    Proveedor proveedorCompra;
 
     /**
      * Creates new form Compra
@@ -78,6 +83,30 @@ public class Compra extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
+        dialogRealizarPedidoOne = new javax.swing.JDialog();
+        btnAtrasRPO = new javax.swing.JButton();
+        btnSiguienteRPO = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableProveedoresxRubro = new javax.swing.JTable();
+        btnPVC = new javax.swing.JButton();
+        btnFerreteria = new javax.swing.JButton();
+        btnElectricidad = new javax.swing.JButton();
+        btnConstruccion = new javax.swing.JButton();
+        btnPintureria = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        labelRubro = new javax.swing.JLabel();
+        dialogRealizarPedidoTwo = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablePedidoFinal = new javax.swing.JTable();
+        txtProveedorRPT = new javax.swing.JTextField();
+        txtDireccionRPT = new javax.swing.JTextField();
+        txtTelefonoRPT = new javax.swing.JTextField();
+        btnAtrasRPT = new javax.swing.JButton();
+        btnGuardarRPT = new javax.swing.JButton();
         dialogRecibirCatalgo = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         txtCuitRC = new javax.swing.JTextField();
@@ -102,22 +131,14 @@ public class Compra extends javax.swing.JFrame {
         dialogSucces = new javax.swing.JDialog();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        dialogRealizarPedidoOne = new javax.swing.JDialog();
-        btnAtrasRPO = new javax.swing.JButton();
-        btnSiguienteRPO = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tableProveedoresxRubro = new javax.swing.JTable();
-        btnPVC = new javax.swing.JButton();
-        btnFerreteria = new javax.swing.JButton();
-        btnElectricidad = new javax.swing.JButton();
-        btnConstruccion = new javax.swing.JButton();
-        btnPintureria = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        labelRubro = new javax.swing.JLabel();
-        dialogRealizarPedidoTwo = new javax.swing.JDialog();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        dialogSuccesPrint = new javax.swing.JDialog();
+        jLabel15 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        dialogRecibirPedido = new javax.swing.JDialog();
+        jLabel16 = new javax.swing.JLabel();
+        txtNumeroPedido = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        btnBuscarPedido = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnAtrasC = new javax.swing.JButton();
         btnRealizarPedido = new javax.swing.JButton();
@@ -185,225 +206,14 @@ public class Compra extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jLabel1.setText("Recibir Catalogo");
-
-        txtCuitRC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCuitRCActionPerformed(evt);
-            }
-        });
-
-        btnBuscarProveedor.setText("Buscar");
-        btnBuscarProveedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarProveedorActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Cuit Proveedor:");
-
-        jLabel4.setText("Nombre: ");
-
-        jLabel5.setText("Direccion: ");
-
-        jLabel6.setText("Material:");
-
-        jLabel7.setText("Precio:");
-
-        txtMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMarcaActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Marca:");
-
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnAtrasRC.setText("Atras");
-
-        btnAgregarTabla.setText(">>>");
-        btnAgregarTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarTablaActionPerformed(evt);
-            }
-        });
-
-        tableItemCatalogo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Material", "Precio", "Marca"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tableItemCatalogo);
-
-        javax.swing.GroupLayout dialogRecibirCatalgoLayout = new javax.swing.GroupLayout(dialogRecibirCatalgo.getContentPane());
-        dialogRecibirCatalgo.getContentPane().setLayout(dialogRecibirCatalgoLayout);
-        dialogRecibirCatalgoLayout.setHorizontalGroup(
-            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAtrasRC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(32, 32, 32)
-                                            .addComponent(btnBuscarProveedor)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(163, 163, 163))))
-                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(446, 446, 446))
-                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)
-                                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(54, 54, 54)
-                                        .addComponent(btnAgregarTabla)))
-                                .addGap(78, 78, 78)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(btnAgregar)
-                .addContainerGap())
-            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                .addGap(327, 327, 327)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
-        );
-        dialogRecibirCatalgoLayout.setVerticalGroup(
-            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarProveedor)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel7)
-                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAgregarTabla)))
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
-                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtrasRC)
-                    .addComponent(btnAgregar))
-                .addContainerGap())
-        );
-
-        jLabel9.setText("Succes");
-
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout dialogSuccesLayout = new javax.swing.GroupLayout(dialogSucces.getContentPane());
-        dialogSucces.getContentPane().setLayout(dialogSuccesLayout);
-        dialogSuccesLayout.setHorizontalGroup(
-            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSuccesLayout.createSequentialGroup()
-                .addGroup(dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogSuccesLayout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel9))
-                    .addGroup(dialogSuccesLayout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(jButton1)))
-                .addContainerGap(176, Short.MAX_VALUE))
-        );
-        dialogSuccesLayout.setVerticalGroup(
-            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogSuccesLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel9)
-                .addGap(48, 48, 48)
-                .addComponent(jButton1)
-                .addContainerGap(152, Short.MAX_VALUE))
-        );
-
         dialogRealizarPedidoOne.setSize(new java.awt.Dimension(100, 25));
 
         btnAtrasRPO.setText("Atras");
+        btnAtrasRPO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasRPOActionPerformed(evt);
+            }
+        });
 
         btnSiguienteRPO.setText("Siguiente");
         btnSiguienteRPO.addActionListener(new java.awt.event.ActionListener() {
@@ -537,21 +347,89 @@ public class Compra extends javax.swing.JFrame {
 
         jLabel13.setText("Dirección: ");
 
+        jLabel14.setText("Telefono: ");
+
+        tablePedidoFinal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Descripcion", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablePedidoFinal);
+
+        txtProveedorRPT.setEditable(false);
+
+        txtDireccionRPT.setEditable(false);
+
+        txtTelefonoRPT.setEditable(false);
+
+        btnAtrasRPT.setText("Atras");
+        btnAtrasRPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasRPTActionPerformed(evt);
+            }
+        });
+
+        btnGuardarRPT.setText("Guardar");
+        btnGuardarRPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRPTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout dialogRealizarPedidoTwoLayout = new javax.swing.GroupLayout(dialogRealizarPedidoTwo.getContentPane());
         dialogRealizarPedidoTwo.getContentPane().setLayout(dialogRealizarPedidoTwoLayout);
         dialogRealizarPedidoTwoLayout.setHorizontalGroup(
             dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(btnAtrasRPT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardarRPT)
+                .addGap(18, 18, 18))
+            .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
                 .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel11))
+                        .addGap(77, 77, 77)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
                         .addGap(57, 57, 57)
+                        .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel12))))
-                .addContainerGap(310, Short.MAX_VALUE))
+                            .addComponent(txtDireccionRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                                .addComponent(txtProveedorRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefonoRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(dialogRealizarPedidoTwoLayout.createSequentialGroup()
+                        .addGap(283, 283, 283)
+                        .addComponent(jLabel11)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         dialogRealizarPedidoTwoLayout.setVerticalGroup(
             dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,10 +437,306 @@ public class Compra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12)
+                .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel14)
+                    .addComponent(txtProveedorRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addContainerGap(448, Short.MAX_VALUE))
+                .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDireccionRPT, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(dialogRealizarPedidoTwoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtrasRPT)
+                    .addComponent(btnGuardarRPT))
+                .addContainerGap())
+        );
+
+        jLabel1.setText("Recibir Catalogo");
+
+        txtCuitRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitRCActionPerformed(evt);
+            }
+        });
+
+        btnBuscarProveedor.setText("Buscar");
+        btnBuscarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProveedorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Cuit Proveedor:");
+
+        jLabel4.setText("Nombre: ");
+
+        jLabel5.setText("Direccion: ");
+
+        jLabel6.setText("Material:");
+
+        jLabel7.setText("Precio:");
+
+        txtMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Marca:");
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnAtrasRC.setText("Atras");
+
+        btnAgregarTabla.setText(">>>");
+        btnAgregarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarTablaActionPerformed(evt);
+            }
+        });
+
+        tableItemCatalogo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Material", "Precio", "Marca"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableItemCatalogo);
+
+        javax.swing.GroupLayout dialogRecibirCatalgoLayout = new javax.swing.GroupLayout(dialogRecibirCatalgo.getContentPane());
+        dialogRecibirCatalgo.getContentPane().setLayout(dialogRecibirCatalgoLayout);
+        dialogRecibirCatalgoLayout.setHorizontalGroup(
+            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtrasRC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(32, 32, 32)
+                                            .addComponent(btnBuscarProveedor)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogRecibirCatalgoLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(163, 163, 163))))
+                            .addComponent(jLabel6)
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(54, 54, 54)
+                                        .addComponent(btnAgregarTabla)))
+                                .addGap(78, 78, 78)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btnAgregar)
+                .addContainerGap())
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGap(327, 327, 327)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+        dialogRecibirCatalgoLayout.setVerticalGroup(
+            dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCuitRC, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarProveedor)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel7)
+                        .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregarTabla)))
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dialogRecibirCatalgoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addGroup(dialogRecibirCatalgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtrasRC)
+                    .addComponent(btnAgregar))
+                .addContainerGap())
+        );
+
+        jLabel9.setText("Succes");
+
+        jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialogSuccesLayout = new javax.swing.GroupLayout(dialogSucces.getContentPane());
+        dialogSucces.getContentPane().setLayout(dialogSuccesLayout);
+        dialogSuccesLayout.setHorizontalGroup(
+            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesLayout.createSequentialGroup()
+                .addGroup(dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogSuccesLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(jLabel9))
+                    .addGroup(dialogSuccesLayout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jButton1)))
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+        dialogSuccesLayout.setVerticalGroup(
+            dialogSuccesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel9)
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        jLabel15.setText("Guardado");
+
+        jButton2.setText("Imprimir");
+
+        javax.swing.GroupLayout dialogSuccesPrintLayout = new javax.swing.GroupLayout(dialogSuccesPrint.getContentPane());
+        dialogSuccesPrint.getContentPane().setLayout(dialogSuccesPrintLayout);
+        dialogSuccesPrintLayout.setHorizontalGroup(
+            dialogSuccesPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesPrintLayout.createSequentialGroup()
+                .addGroup(dialogSuccesPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogSuccesPrintLayout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel15))
+                    .addGroup(dialogSuccesPrintLayout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(jButton2)))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+        dialogSuccesPrintLayout.setVerticalGroup(
+            dialogSuccesPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogSuccesPrintLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel15)
+                .addGap(60, 60, 60)
+                .addComponent(jButton2)
+                .addContainerGap(137, Short.MAX_VALUE))
+        );
+
+        jLabel16.setText("Recibir Pedido");
+
+        jLabel17.setText("Número de Pedido:");
+
+        btnBuscarPedido.setText("Buscar");
+        btnBuscarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPedidoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialogRecibirPedidoLayout = new javax.swing.GroupLayout(dialogRecibirPedido.getContentPane());
+        dialogRecibirPedido.getContentPane().setLayout(dialogRecibirPedidoLayout);
+        dialogRecibirPedidoLayout.setHorizontalGroup(
+            dialogRecibirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirPedidoLayout.createSequentialGroup()
+                .addGroup(dialogRecibirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogRecibirPedidoLayout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel16))
+                    .addGroup(dialogRecibirPedidoLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarPedido)))
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        dialogRecibirPedidoLayout.setVerticalGroup(
+            dialogRecibirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogRecibirPedidoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel16)
+                .addGap(66, 66, 66)
+                .addGroup(dialogRecibirPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(btnBuscarPedido))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -792,15 +966,19 @@ public class Compra extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+
         int j = 0;
         for (Material m : model.getDatos()) {
             if (jTable1.getValueAt(j, 6).equals(true)) {
                 datosComprar.add(m);
+                datosComprarM.add(m);
             }
             j++;
         }
         dialogRealizarPedidoOne.setVisible(true);
-        dialogRealizarPedido.setSize(800, 500);
+        dialogRealizarPedidoOne.setSize(700, 600);
+        dialogRealizarPedidoOne.setResizable(false);
+        dialogRealizarPedidoOne.setLocationRelativeTo(null);
         dialogRealizarPedido.setVisible(false);
 
     }//GEN-LAST:event_btnSiguienteActionPerformed
@@ -858,9 +1036,116 @@ public class Compra extends javax.swing.JFrame {
     private void btnSiguienteRPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRPOActionPerformed
         // TODO add your handling code here:
         proveedorCompra = proveedores.get(tableProveedoresxRubro.getSelectedRow());
+        txtProveedorRPT.setText(proveedorCompra.getNombre());
+        txtDireccionRPT.setText(proveedorCompra.getDireccion());
+        txtTelefonoRPT.setText(String.valueOf(proveedorCompra.getTelefono()));
+        setTablePedido();
+        dialogRealizarPedidoTwo.setVisible(true);
+        dialogRealizarPedidoTwo.setSize(700, 600);
+        dialogRealizarPedidoTwo.setResizable(false);
+        dialogRealizarPedidoTwo.setLocationRelativeTo(null);
+        dialogRealizarPedidoOne.dispose();
+
     }//GEN-LAST:event_btnSiguienteRPOActionPerformed
 
+    private void btnAtrasRPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasRPOActionPerformed
+        // TODO add your handling code here:
+        datosComprarM.clear();
+        dialogRealizarPedido.setVisible(true);
+        dialogRealizarPedidoOne.dispose();
+    }//GEN-LAST:event_btnAtrasRPOActionPerformed
+
+    private void btnAtrasRPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasRPTActionPerformed
+        // TODO add your handling code here:
+        dialogRealizarPedidoOne.setVisible(true);
+        dialogRealizarPedido.setSize(700, 600);
+        dialogRealizarPedido.setResizable(false);
+        dialogRealizarPedido.setLocationRelativeTo(null);
+        dialogRealizarPedidoTwo.dispose();
+    }//GEN-LAST:event_btnAtrasRPTActionPerformed
+
+    private void btnGuardarRPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRPTActionPerformed
+        // TODO add your handling code here:
+        LocalDate todayLocalDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
+        java.sql.Date sqlDate = java.sql.Date.valueOf(todayLocalDate);
+        PedidoProveedor pedido = new PedidoProveedor(null, sqlDate, false, proveedorCompra.getCuit());
+        try {
+            manager.getPedidoProveedorDAO().insertar(pedido);
+        } catch (DAOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Long idP = pedido.getIdPedidoProveedor();
+        int i = 0;
+        for (Material m : datosComprarM) {
+            int cant = (int)(tablePedidoFinal.getValueAt(i, 2));
+            double subtotal = cant * m.getPrecioUnitario();
+            DetallePedidoProveedor detalle = new DetallePedidoProveedor(idP, m.getidMaterial(), m.getdescripcion(),cant, subtotal);
+            detalle.setId(detalle. new Id(idP, m.getidMaterial()));
+            try {
+                manager.getDetallePedidoProveedorDAO().insertar(detalle);
+            } catch (DAOException ex) {
+                Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            i++;
+        }
+        datosComprar.clear();
+        dialogRealizarPedidoTwo.dispose();
+        dialogSuccesPrint.setVisible(true);
+        dialogSuccesPrint.setSize(200,150);
+        dialogSuccesPrint.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnGuardarRPTActionPerformed
+
+    private void btnBuscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPedidoActionPerformed
+        // TODO add your handling code here:
+        ////buscarPDF y mstrar
+    }//GEN-LAST:event_btnBuscarPedidoActionPerformed
+
+    public void setTablePedido() {
+
+        tableProveedoresxRubro.removeAll();
+
+        String[] columnas = new String[]{
+            "Nombre",
+            "Descripcion",
+            "Cantidad"
+        //"Seleccionar"
+        };
+
+        final Class[] tiposColumnas = new Class[]{
+            java.lang.String.class,
+            java.lang.String.class,
+            java.lang.Integer.class, //JButton.class
+        };
+        Object[][] datos = new Object[datosComprar.size()][3];
+        int i = 0;
+
+        for (Material m : datosComprarM) {
+            datos[i][0] = m.getNombre();
+            datos[i][1] = m.getdescripcion();
+            datos[i][2] = 0;
+            i++;
+        }
+        tablePedidoFinal.setModel(new javax.swing.table.DefaultTableModel(datos, columnas) {
+            Class[] tipos = tiposColumnas;
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return tipos[columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Sobrescribimos este método para evitar que la columna que contiene los botones sea editada.
+                return column == 2;
+            }
+        });
+
+    }
+
     public void setTableProveedor(String rubro) throws DAOException {
+
+        tableProveedoresxRubro.removeRowSelectionInterval(0, tablePedidoFinal.getRowCount() - 1);
+
         String[] columnas = new String[]{
             "Cuit",
             "Nombre",
@@ -963,10 +1248,13 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JButton btnAtrasC;
     private javax.swing.JButton btnAtrasRC;
     private javax.swing.JButton btnAtrasRPO;
+    private javax.swing.JButton btnAtrasRPT;
+    private javax.swing.JButton btnBuscarPedido;
     private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnConstruccion;
     private javax.swing.JButton btnElectricidad;
     private javax.swing.JButton btnFerreteria;
+    private javax.swing.JButton btnGuardarRPT;
     private javax.swing.JButton btnPVC;
     private javax.swing.JButton btnPintureria;
     private javax.swing.JButton btnProveedor;
@@ -979,13 +1267,20 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JDialog dialogRealizarPedidoOne;
     private javax.swing.JDialog dialogRealizarPedidoTwo;
     private javax.swing.JDialog dialogRecibirCatalgo;
+    private javax.swing.JDialog dialogRecibirPedido;
     private javax.swing.JDialog dialogSucces;
+    private javax.swing.JDialog dialogSuccesPrint;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -997,16 +1292,22 @@ public class Compra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelRubro;
     private javax.swing.JTable tableItemCatalogo;
+    private javax.swing.JTable tablePedidoFinal;
     private javax.swing.JTable tableProveedoresxRubro;
     private javax.swing.JTextField txtCuitRC;
     private javax.swing.JTextField txtDireccionP;
+    private javax.swing.JTextField txtDireccionRPT;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtMaterial;
     private javax.swing.JTextField txtNombreP;
+    private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProveedorRPT;
+    private javax.swing.JTextField txtTelefonoRPT;
     // End of variables declaration//GEN-END:variables
 }

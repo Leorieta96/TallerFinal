@@ -25,11 +25,6 @@ public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO
         this.conn =conn;
         
     };
-
-  
-
-  
-    
     
     @Override
     public void insertar(DetallePedidoProveedor a) throws DAOException { 
@@ -41,7 +36,7 @@ public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO
             stat.setString(3, a.getDescripcion());
             stat.setInt(4, a.getCantidad());
             stat.setDouble(5, a.getSubtotal());
-            if(stat.executeUpdate() ==0){
+            if(stat.executeUpdate() == 0){
             throw new DAOException("Puede que no se haya guardado ");
             }
         } catch (SQLException ex) {
@@ -92,7 +87,7 @@ public class MySQLDetallePedidoProveedorDAO implements DetallePedidoProveedorDAO
     }
 
     private DetallePedidoProveedor convertir(ResultSet rs )throws SQLException{
-        DetallePedidoProveedor detalleProv = new DetallePedidoProveedor(null, rs.getString("descripcion"),rs.getInt("cantidad"), rs.getDouble("subtotal"));
+        DetallePedidoProveedor detalleProv = new DetallePedidoProveedor(null,null ,rs.getString("descripcion"),rs.getInt("cantidad"), rs.getDouble("subtotal"));
         detalleProv.setId(rs.getLong("idPedidoProveedor"),rs.getLong("idMaterial"));
         return detalleProv;
    }
