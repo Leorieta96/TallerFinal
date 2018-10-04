@@ -4,27 +4,27 @@ public class DetallePresupuesto {
 
     public class Id {
 
-        private Presupuesto idPresupuesto;
-        private Material idMaterial;
+        private Long idPresupuesto;
+        private Long idMaterial;
 
-        public Id(Presupuesto idPresupuesto, Material idMaterial) {
+        public Id(Long idPresupuesto, Long idMaterial) {
             this.idPresupuesto = idPresupuesto;
             this.idMaterial = idMaterial;
         }
 
-        public Presupuesto getIdPresupuesto() {
+        public Long getIdPresupuesto() {
             return idPresupuesto;
         }
 
-        public void setIdPresupuesto(Presupuesto idPresupuesto) {
+        public void setIdPresupuesto(Long idPresupuesto) {
             this.idPresupuesto = idPresupuesto;
         }
 
-        public Material getIdMaterial() {
+        public Long getIdMaterial() {
             return idMaterial;
         }
 
-        public void setIdMaterial(Material idMaterial) {
+        public void setIdMaterial(Long idMaterial) {
             this.idMaterial = idMaterial;
         }
 
@@ -35,29 +35,26 @@ public class DetallePresupuesto {
     private double subtotal;
     private int cantidad;
 
-    public DetallePresupuesto(Presupuesto idPresupuesto, Material idMaterial, String descripcion, double subtotal, int cantidad) {
-        this.id.idPresupuesto = idPresupuesto;
-        this.id.idMaterial = idMaterial;
+    public DetallePresupuesto(Long idPresupuesto, Long idMaterial, String descripcion, double subtotal, int cantidad) {
+        this.id=new Id(idPresupuesto, idMaterial);
         this.descripcion = descripcion;
         this.subtotal = subtotal;
         this.cantidad = cantidad;
     }
 
-    public Presupuesto getIdPresupuesto() {
-        return id.idPresupuesto;
+    public Id getId() {
+        return id;
     }
 
-    public void setIdPresupuesto(Presupuesto idPresupuesto) {
-        this.id.idPresupuesto = idPresupuesto;
+    public void setId(Id id) {
+        this.id = id;
     }
 
-    public Material getIdMaterial() {
-        return id.idMaterial;
-    }
+    
 
-    public void setIdMaterial(Material idMaterial) {
-        this.id.idMaterial = idMaterial;
-    }
+   
+
+   
 
     public String getDescripcion() {
         return descripcion;

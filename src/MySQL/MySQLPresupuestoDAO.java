@@ -7,12 +7,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import modelo.Presupuesto;
 
 public class MySQLPresupuestoDAO implements PresupuestoDAO{
 
-    final String INSERT = "INSERT INTO presupuesto(codPresupuesto, fecha, total) VALUES(?, ?, ?)";
+    final String INSERT = "INSERT INTO presupuesto( fecha, total) VALUES( ?, ?)";
     final String UPDATE = "UPDATE presupuesto SET fecha = ?, total = ?  WHERE codPresupuesto = ?";
     final String DELETE = "DELETE FROM presupuesto WHERE codPresupuesto = ?";
     final String GETALL = "SELECT codPresupuesto, fecha, total FROM presupuesto = ?";
@@ -28,13 +29,21 @@ public class MySQLPresupuestoDAO implements PresupuestoDAO{
     @Override
     public void insertar(Presupuesto a) throws DAOException{
         PreparedStatement stat = null;
+        ResultSet rs=null;
         try {
-            stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getIdPresupuesto());
-            stat.setDate(2, a.getFecha());
-            stat.setDouble(3, a.getTotal());
+            stat = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+          
+            stat.setDate(1, a.getFecha());
+            stat.setDouble(2, a.getTotal());
             if(stat.executeUpdate()== 0){
                 throw new DAOException("Puede q no se haya guardado");
+            }rs =stat.getGeneratedKeys();
+            if(rs.next()){
+            a.setIdPresupuesto(rs.getLong(1));
+            }
+            else
+            {
+             throw new DAOException("puede q no se haya generado");
             }
         } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);

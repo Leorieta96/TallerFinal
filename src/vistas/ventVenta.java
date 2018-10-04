@@ -324,8 +324,8 @@ public class ventVenta extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            presupuesto ventanaVenta;
-            ventanaVenta = new presupuesto(manager);
+            vtnPresupuesto ventanaVenta;
+            ventanaVenta = new vtnPresupuesto(manager);
             ventanaVenta.setVisible(true);
             ventanaVenta.setSize(800, 500);
             

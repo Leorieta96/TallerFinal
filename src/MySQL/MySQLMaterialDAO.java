@@ -18,8 +18,9 @@ public class MySQLMaterialDAO implements MaterialDAO {
     final String UPDATE = "UPDATE catalogo SET fecha = ?";
     final String DELETE = "DELETE FROM catalogo WHERE idCatalogo = ?";
     final String GETALL = "SELECT * FROM `material`";
-    final String GETONE = "SELECT *  FROM `material` WHERE `idCatalogo` = ?";
+    final String GETONE = "SELECT *  FROM `material` WHERE `idMaterial` = ?";
     final String GETxCANT = "SELECT * FROM `material` WHERE `stockMaterial` <= 5  ";
+    final String GETALLxNombre = "SELECT * FROM `material` WHERE `tipoMaterial` = ?  ";
 
     private Connection conn;
 
@@ -76,8 +77,72 @@ public class MySQLMaterialDAO implements MaterialDAO {
     }
 
     @Override
-    public Material obtener(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Material obtener(Long id) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        Material m = null;
+        try {
+            stat = conn.prepareStatement(GETONE);
+            stat.setLong(1, id);
+            rs = stat.executeQuery();
+            if (rs.next()) {
+                m = convertir(rs);
+            } else {
+                m = null;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro SQL");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return m;
+        
+    }
+    public List<Material> obtenerTodosxNombre(String nombre) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Material> materiales = new ArrayList<>();
+        try {
+            
+            stat = conn.prepareStatement(GETALLxNombre);
+            stat.setString(1, nombre);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                materiales.add(convertir(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error SQL");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error en SQL", e);
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAOException("Error SQL", e);
+                }
+            }
+        }
+        return materiales;
+
     }
 
     /**
@@ -117,9 +182,13 @@ public class MySQLMaterialDAO implements MaterialDAO {
 //
 //    }
     private Material convertir(ResultSet rs) throws SQLException {
-        Long id = (long) rs.getInt("idMaterial");
-        Material material = new Material(id, rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("stockMaterial"), (long) rs.getInt("precioUnitarioM"), rs.getString("rubro"));
+        Long id = rs.getLong("idMaterial");
+        Material material = new Material(id, rs.getString("tipoMaterial"), rs.getString("descripcion"), rs.getInt("stockMaterial"),  rs.getLong("precioUnitarioM"), rs.getString("rubro"));
         return material;
+    }
+    private Material convertir2(ResultSet rs) throws SQLException {
+         Material mat = new Material (rs.getLong("idMaterial"), rs.getString("tipoMaterial"), rs.getString("descripcion"), rs.getInt("stockMaterial"),rs.getLong("precioUnitario"),rs.getString("rubro"));
+        return mat;
     }
 
     @Override

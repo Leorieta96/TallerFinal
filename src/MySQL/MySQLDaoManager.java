@@ -83,7 +83,7 @@ public class MySQLDaoManager implements dao.DAOManager{
     @Override
     public DetallePresupuestoDAO getDetallePresupuestoDAO() {
         if(detallePresupuesto == null){
-            detallePresupuesto = new MySQLDetallePresupuestoDAO();
+            detallePresupuesto = new MySQLDetallePresupuestoDAO(conn);
         }
         return detallePresupuesto;
     }
