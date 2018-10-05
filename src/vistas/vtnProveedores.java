@@ -124,6 +124,11 @@ public class vtnProveedores extends javax.swing.JFrame {
         jLabel4.setText("Rubro");
 
         txtCuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitActionPerformed(evt);
+            }
+        });
 
         txtNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtNombre.setName(""); // NOI18N
@@ -134,6 +139,11 @@ public class vtnProveedores extends javax.swing.JFrame {
         });
 
         txtTelefono.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
 
         cbRubros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar ...", "PVC", "Ferretería", "Construccíon", "Pinturería", "Elecctricidad" }));
         cbRubros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -224,6 +234,11 @@ public class vtnProveedores extends javax.swing.JFrame {
 
         txtCuit2.setToolTipText("XX- YYYYYYYY-ZZ");
         txtCuit2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCuit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuit2ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Nombre:");
 
@@ -232,6 +247,11 @@ public class vtnProveedores extends javax.swing.JFrame {
         jLabel12.setText("Telefono: ");
 
         txtTelefono2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtTelefono2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefono2ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Rubro");
 
@@ -416,6 +436,22 @@ public class vtnProveedores extends javax.swing.JFrame {
             Logger.getLogger(vtnProveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
+
+    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitActionPerformed
+
+    private void txtCuit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuit2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuit2ActionPerformed
+
+    private void txtTelefono2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefono2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefono2ActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     /**
      * @param args the command line arguments
