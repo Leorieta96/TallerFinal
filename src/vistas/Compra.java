@@ -1185,43 +1185,6 @@ public class Compra extends javax.swing.JFrame {
                 return column == 4;
             }
         });
-//        tableProveedoresxRubro.setDefaultRenderer(JButton.class, new TableCellRenderer() {
-//
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                return (Component) value;
-//            }
-//        });
-
-//        tableProveedoresxRubro.addMouseListener(new MouseAdapter() {
-//
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                int fila = tableProveedoresxRubro.rowAtPoint(e.getPoint());
-//                int columna = tableProveedoresxRubro.columnAtPoint(e.getPoint());
-//
-//                /**
-//                 * Preguntamos si hicimos clic sobre la celda que contiene el
-//                 * botón, si tuviéramos más de un botón por fila tendríamos que
-//                 * además preguntar por el contenido del botón o el nombre de la
-//                 * columna
-//                 */
-//                if (tableProveedoresxRubro.getModel().getColumnClass(columna).equals(JButton.class)) {
-//                    /**
-//                     * Aquí pueden poner lo que quieran, para efectos de este
-//                     * ejemplo, voy a mostrar en un cuadro de dialogo todos los
-//                     * campos de la fila que no sean un botón.
-//                     */
-//                    StringBuilder sb = new StringBuilder();
-//                    for (int i = 0; i < tableProveedoresxRubro.getModel().getColumnCount(); i++) {
-//                        if (!tableProveedoresxRubro.getModel().getColumnClass(i).equals(JButton.class)) {
-//                            sb.append("\n").append(tableProveedoresxRubro.getModel().getColumnName(i)).append(": ").append(tableProveedoresxRubro.getModel().getValueAt(fila, i));
-//                        }
-//                    }
-//                }
-//            }
-//
-//        });
     }
 
     /**

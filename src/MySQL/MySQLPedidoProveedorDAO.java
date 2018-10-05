@@ -36,7 +36,8 @@ public class MySQLPedidoProveedorDAO implements PedidoProveedorDAO{
             if(stat.executeUpdate() == 0)
             {   
                 System.out.println("Puede q no se haya guardado");
-            }rs = stat.getGeneratedKeys();
+            }
+            rs = stat.getGeneratedKeys();
             if (rs.next()) {
                 a.setIdPedidoProveedor(rs.getLong(1));
             } else {

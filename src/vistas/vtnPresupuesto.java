@@ -28,7 +28,7 @@ public class vtnPresupuesto extends javax.swing.JFrame {
 
     private final DAOManager manager;
     private List<Material> listamateriales = new ArrayList<>();
-     private List<Material> listaseleccionados = new ArrayList<>();
+    private List<Material> listaseleccionados = new ArrayList<>();
     int fila = 0;
     float total = 0;
 
@@ -369,10 +369,7 @@ public class vtnPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_calcularActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        
-        
-        
+
         LocalDate todayLocalDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
         java.sql.Date sqlDate = java.sql.Date.valueOf(todayLocalDate);
         Presupuesto Pre = new Presupuesto(null, sqlDate, total);
@@ -382,24 +379,20 @@ public class vtnPresupuesto extends javax.swing.JFrame {
             Logger.getLogger(vtnPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
         Long idpre = Pre.getIdPresupuesto();
-        int i=0;
-        for(Material m : listaseleccionados){
-            
+        int i = 0;
+        for (Material m : listaseleccionados) {
+
             Long subtotal = Long.valueOf(tablaSeleccionados.getValueAt(i, 6).toString());
             Integer cantidad = Integer.valueOf(tablaSeleccionados.getValueAt(i, 5).toString());
-            DetallePresupuesto nuevo= new DetallePresupuesto(idpre,m.getidMaterial(),m.getdescripcion(),subtotal, cantidad );
+            DetallePresupuesto nuevo = new DetallePresupuesto(idpre, m.getidMaterial(), m.getNombre() + " " + m.getdescripcion(), subtotal, cantidad);
             try {
                 manager.getDetallePresupuestoDAO().insertar(nuevo);
             } catch (DAOException ex) {
                 Logger.getLogger(vtnPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
+
         }
-        
-        
-        
-        
-        
+
         succes.setVisible(true);
         succes.setSize(200, 200);
 

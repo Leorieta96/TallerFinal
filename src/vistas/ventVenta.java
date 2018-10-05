@@ -22,21 +22,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import modelo.Catalogo;
+import modelo.DetallePedidoCliente;
+import modelo.DetallePresupuesto;
 import modelo.ItemCatalogo;
 import modelo.Presupuesto;
 import modelo.Proveedor;
-
-
 
 /**
  *
  * @author Lucas
  */
 public class ventVenta extends javax.swing.JFrame {
-   
+
     private static DAOManager manager;
-    
-    
 
     /**
      * Creates new form vtcompra
@@ -44,7 +42,7 @@ public class ventVenta extends javax.swing.JFrame {
     public ventVenta(DAOManager manager) throws SQLException {
         ventVenta.manager = manager;
         initComponents();
-        
+
     }
 
     /**
@@ -68,12 +66,14 @@ public class ventVenta extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         DialogoGenerarPresupuesto = new javax.swing.JDialog();
         DialogoVentaConPresupuesto = new javax.swing.JDialog();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtIDPresupuesto = new javax.swing.JTextPane();
         jLabel6 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
-        DialogoBuscar = new javax.swing.JDialog();
+        labelFailedPresupuesto = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablePresupuesto = new javax.swing.JTable();
+        dialogFailed = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -166,17 +166,6 @@ public class ventVenta extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
-        );
-
         jScrollPane1.setViewportView(TxtIDPresupuesto);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -189,6 +178,27 @@ public class ventVenta extends javax.swing.JFrame {
             }
         });
 
+        tablePresupuesto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre - Descripcion", "Cantidad", "Subtotal"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablePresupuesto);
+
         javax.swing.GroupLayout DialogoVentaConPresupuestoLayout = new javax.swing.GroupLayout(DialogoVentaConPresupuesto.getContentPane());
         DialogoVentaConPresupuesto.getContentPane().setLayout(DialogoVentaConPresupuestoLayout);
         DialogoVentaConPresupuestoLayout.setHorizontalGroup(
@@ -196,40 +206,47 @@ public class ventVenta extends javax.swing.JFrame {
             .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
                 .addGroup(DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DialogoVentaConPresupuestoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(labelFailedPresupuesto)
+                        .addGap(158, 158, 158)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
+                            .addGap(98, 98, 98)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton6))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DialogoVentaConPresupuestoLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(532, Short.MAX_VALUE))
         );
         DialogoVentaConPresupuestoLayout.setVerticalGroup(
             DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
                 .addGroup(DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DialogoVentaConPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6))))
-                .addContainerGap(283, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addComponent(labelFailedPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DialogoVentaConPresupuestoLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout DialogoBuscarLayout = new javax.swing.GroupLayout(DialogoBuscar.getContentPane());
-        DialogoBuscar.getContentPane().setLayout(DialogoBuscarLayout);
-        DialogoBuscarLayout.setHorizontalGroup(
-            DialogoBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dialogFailedLayout = new javax.swing.GroupLayout(dialogFailed.getContentPane());
+        dialogFailed.getContentPane().setLayout(dialogFailedLayout);
+        dialogFailedLayout.setHorizontalGroup(
+            dialogFailedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 639, Short.MAX_VALUE)
         );
-        DialogoBuscarLayout.setVerticalGroup(
-            DialogoBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        dialogFailedLayout.setVerticalGroup(
+            dialogFailedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 371, Short.MAX_VALUE)
         );
 
@@ -314,7 +331,7 @@ public class ventVenta extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DialogoVentaConPresupuesto.setTitle("Ventana Sin Presupuesto");
         DialogoVentaConPresupuesto.setVisible(true);
-        DialogoVentaConPresupuesto.setSize(800,500);
+        DialogoVentaConPresupuesto.setSize(800, 500);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -328,23 +345,18 @@ public class ventVenta extends javax.swing.JFrame {
             ventanaVenta = new vtnPresupuesto(manager);
             ventanaVenta.setVisible(true);
             ventanaVenta.setSize(800, 500);
-            
+
             this.dispose();
-            
-            
-            
+
             DialogoGenerarPresupuesto.setTitle("Generar Presupuesto");
-            
-           
-            
-           
+
         } catch (DAOException ex) {
             Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-          home ventaHome;
+        home ventaHome;
         try {
             ventaHome = new home();
             ventaHome.setVisible(true);
@@ -352,26 +364,81 @@ public class ventVenta extends javax.swing.JFrame {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
-       
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Long ID= Long.valueOf(TxtIDPresupuesto.getText());
-        Presupuesto P=null;
+        LocalDate todayLocalDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
+        java.sql.Date sqlDate = java.sql.Date.valueOf(todayLocalDate);
+        Long ID = Long.valueOf(TxtIDPresupuesto.getText());
+        List<DetallePresupuesto> listDetalle = new ArrayList<>();
+        Presupuesto p = null;
         try {
-            P=manager.getPresupuestoDAO().obtener(ID);
+            p = manager.getPresupuestoDAO().obtener(ID);
         } catch (DAOException ex) {
             Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
-        } if(P!=null){
-            
         }
-            
+        if (p == null) {
+            labelFailedPresupuesto.setText("Presupuesto Inexistente");
+        } else {
+            int dias = (int) ((sqlDate.getTime() - p.getFecha().getTime()) / 86400000);
+            if (dias > 30) {
+                labelFailedPresupuesto.setText("Presupuesto sin validez");
+            } else {
+                try {
+                    listDetalle = manager.getDetallePresupuestoDAO().obtenerXIdPresupuesto(p.getIdPresupuesto());
+                } catch (DAOException ex) {
+                    Logger.getLogger(ventVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                setTablePresupuesto(listDetalle);
+            }
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void setTablePresupuesto(List<DetallePresupuesto> listDetalle) {
+        tablePresupuesto.removeAll();
+
+        String[] columnas = new String[]{
+            "Nombre - Descripcion",
+            "Cantidad",
+            "Subtotal"
+        //"Seleccionar"
+        };
+
+        final Class[] tiposColumnas = new Class[]{
+            java.lang.String.class,
+            int.class,
+            java.lang.Long.class, //JButton.class
+        };
+        Object[][] datos = new Object[listDetalle.size()][3];
+        int i = 0;
+
+        for (DetallePresupuesto m : listDetalle) {
+            datos[i][0] = m.getDescripcion();
+            datos[i][1] = m.getCantidad();
+            datos[i][2] = m.getSubtotal();
+            i++;
+        }
+        tablePresupuesto.setModel(new javax.swing.table.DefaultTableModel(datos, columnas) {
+            Class[] tipos = tiposColumnas;
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return tipos[columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Sobrescribimos este método para evitar que la columna que contiene los botones sea editada.
+                return false;
+            }
+        });
+}
+    
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -410,11 +477,11 @@ public class ventVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDialog DialogoBuscar;
     private javax.swing.JDialog DialogoGenerarPresupuesto;
     private javax.swing.JDialog DialogoVentaConPresupuesto;
     private javax.swing.JDialog DialogoVentaSinPresupuesto;
     private javax.swing.JTextPane TxtIDPresupuesto;
+    private javax.swing.JDialog dialogFailed;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -428,10 +495,12 @@ public class ventVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel labelFailedPresupuesto;
+    private javax.swing.JTable tablePresupuesto;
     // End of variables declaration//GEN-END:variables
 }
