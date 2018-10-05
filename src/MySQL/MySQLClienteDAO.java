@@ -13,10 +13,10 @@ import modelo.Cliente;
 
 public class MySQLClienteDAO implements ClienteDAO {
 
-    final String INSERT = "INSERT INTO cliente (dni, nombre, telefono, direccion, email) VALUES (?, ?, ?, ?)";
-    final String UPDATE = "UPDATE cliente SET nombre = ?, telefono = ?, dirrecion = ?, email = ? WHERE DNI = ?";
+    final String INSERT = "INSERT INTO cliente (dni, nombre, telefono, direccion, email) VALUES (?, ?, ?, ?,?)";
+    final String UPDATE = "UPDATE `cliente` SET `nombre` = ?, `telefono` = ?, `direccion` = ?, `email` = ? WHERE `cliente`.`dni` = ? ";
     final String DELETE = "DELETE FROM cliente WHERE DNI = ?";
-    final String GETALL = "SELECT dni, nombre, telefono, dirrecion, email FROM cliente";
+    final String GETALL = "SELECT * FROM cliente";
     final String GETONE = "SELECT * FROM `cliente` WHERE `dni` = ?";
 
     private Connection conn;
@@ -75,8 +75,30 @@ public class MySQLClienteDAO implements ClienteDAO {
     }
 
     @Override
-    public void modificar(Cliente a) {
-        ;
+    public void modificar(Cliente a) throws DAOException {
+        
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(UPDATE);
+            stat.setString(1, a.getNombre());
+            stat.setInt(2, a.getTelefono());
+            stat.setString(3, a.getDireccion());
+            stat.setString(4, a.getEmail());
+            stat.setLong(5, a.getdni());
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("Puede q no se haya guardado");
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Error en SQL", ex);
+        } finally {
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                    throw new DAOException("Error en sql", ex);
+                }
+            }
+        }
     }
 
     private Cliente convertir(ResultSet rs) throws SQLException {
