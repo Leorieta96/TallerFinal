@@ -353,19 +353,13 @@ public class vtnPresupuesto extends javax.swing.JFrame {
         for (i = 0; i < tamaño; i++) {
             //Long sum= Long.valueOf((String.valueOf(tablaSeleccionados.getValueAt(i, 5)))) * Long.valueOf((String.valueOf(tablaSeleccionados.getValueAt(i, 3))));
             Long sum = Long.valueOf(tablaSeleccionados.getValueAt(i, 3).toString()) * Long.valueOf(tablaSeleccionados.getValueAt(i, 5).toString());
-
             tablaSeleccionados.setValueAt(sum, i, 6);
-
             if (tablaSeleccionados.getValueAt(i + 1, i) == null) {
                 i = tamaño + 1;
             }
-
             total = total + sum;
-
         }
-
         txttotal.setText("$" + total);
-
     }//GEN-LAST:event_calcularActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

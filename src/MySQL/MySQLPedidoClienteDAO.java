@@ -6,13 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.PedidoCliente;
 
 public class MySQLPedidoClienteDAO implements PedidoClienteDAO{
     
-    final String INSERT = "INSERT INTO PedidoCliente (idPedidoCliente, estadoPedidoC, totalPedidoC, fechaEmision, fechaRecibido,dni) VALUES (?, ?, ?, ?, ?,?)";
+    final String INSERT = "INSERT INTO PedidoCliente ( estadoPedidoC, totalPedidoC, fechaEmision, fechaRecibido,dni) VALUES ( ?, ?, ?, ?,?)";
     final String UPDATE = "UPDATE PedidoCliente SET idPedidoCliente = ? estadoPedidoC = ? totalPedidoC = ? fechaEmision = ? fechaRecibido = ? dni = ?";
     final String DELETE = "DELETE FROM PedidoCliente WHERE idPedidoCliente = ? ";
     final String GETALL = "SELECT idPedidoCliente, estadoPedidoC, totalPedidoC, fechaEmision, fechaRecibido,dni";
@@ -29,18 +30,22 @@ public class MySQLPedidoClienteDAO implements PedidoClienteDAO{
     @Override
     public void insertar(PedidoCliente a) throws DAOException {
         PreparedStatement stat = null;
+        ResultSet rs = null;
         try {
-            stat = conn.prepareStatement(INSERT);
-            stat.setLong(1, a.getIdPedidoCliente());
-            stat.setString(2, a.getEstadoPedidoC());
-            stat.setInt(3, a.getTotalPedidoC());
-            stat.setDate(4, a.getFechaEmision());
-            stat.setDate(5, a.getFechaRecibido());
-            stat.setLong(6, a.getdni());
-            
+            stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1, a.getEstadoPedidoC());
+            stat.setDouble(2, a.getTotalPedidoC());
+            stat.setDate(3, a.getFechaEmision());
+            stat.setDate(4, a.getFechaRecibido());
+            stat.setLong(5, a.getdni());
             if(stat.executeUpdate() == 0)
             {   
                 System.out.println("Puede q no se haya guardado");
+            }rs = stat.getGeneratedKeys();
+            if (rs.next()) {
+                a.setIdPedidoCliente(rs.getLong(1));
+            } else {
+                throw new DAOException("Puede que no se haya generado");
             }
          } catch (SQLException ex) {
              throw new DAOException("Error en SQL", ex);
@@ -86,7 +91,7 @@ public class MySQLPedidoClienteDAO implements PedidoClienteDAO{
     }
     
     private PedidoCliente convertir(ResultSet rs) throws SQLException {
-       PedidoCliente pedido = new PedidoCliente(null , rs.getString("estadoPedidoC"), rs.getInt("totalPedidoC"), rs.getDate("fechaEmision"), rs.getDate("fechaRecibido"),rs.getLong("dni"));// falta el DNIIIIIII
+       PedidoCliente pedido = new PedidoCliente(null , rs.getString("estadoPedidoC"), rs.getDouble("totalPedidoC"), rs.getDate("fechaEmision"), rs.getDate("fechaRecibido"),rs.getLong("dni"));// falta el DNIIIIIII
         pedido.setIdPedidoCliente(rs.getLong("idPedidoCliente"));
         return pedido;
         

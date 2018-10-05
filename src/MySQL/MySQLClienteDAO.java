@@ -16,7 +16,7 @@ public class MySQLClienteDAO implements ClienteDAO {
     final String UPDATE = "UPDATE cliente SET nombre = ?, telefono = ?, dirrecion = ?, email = ? WHERE DNI = ?";
     final String DELETE = "DELETE FROM cliente WHERE DNI = ?";
     final String GETALL = "SELECT dni, nombre, telefono, dirrecion, email FROM cliente";
-    final String GETONE = "SELECT dni, nombre, telefono, direccion, email FROM cliente WHERE dni = ?";
+    final String GETONE = "SELECT * FROM `cliente` WHERE `dni` = ?";
 
     private Connection conn;
 
@@ -79,7 +79,7 @@ public class MySQLClienteDAO implements ClienteDAO {
     }
 
     private Cliente convertir(ResultSet rs) throws SQLException {
-        Cliente cliente = new Cliente(rs.getLong("DNI"), rs.getString("nomCliente"), rs.getInt("telCliente"), rs.getString("irCliente"), rs.getString("emailCliente"));
+        Cliente cliente = new Cliente(rs.getLong("dni"), rs.getString("nombre"), rs.getInt("telefono"), rs.getString("direccion"), rs.getString("email"));
         return cliente;
     }
 
@@ -96,7 +96,7 @@ public class MySQLClienteDAO implements ClienteDAO {
                 clientes.add(convertir(rs));
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro SQL");
+            throw new DAOException("Error SQL");
         } finally {
             if (rs != null) {
                 try {

@@ -33,8 +33,8 @@ public class DetallePedidoCliente {
     private float subtotal;
     private int cantidadPedC;
 
-    public DetallePedidoCliente(Id id, String descripcion, float subtotal, int cantidadPedC) {
-        this.id = id;
+    public DetallePedidoCliente(Long idPedidoCliente,Long idMaterial, String descripcion, float subtotal, int cantidadPedC) {
+        this.id = new Id(idPedidoCliente, idMaterial);
         this.descripcion = descripcion;
         this.subtotal = subtotal;
         this.cantidadPedC = cantidadPedC;

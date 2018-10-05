@@ -5,12 +5,12 @@ import java.sql.Date;
 public class PedidoCliente {
     private Long idPedidoCliente;
     private String estadoPedidoC;
-    private int totalPedidoC;
+    private Double totalPedidoC;
     private Date fechaEmision;
     private Date fechaRecibido;
     private Long dni;
 
-    public PedidoCliente(Long idPedidoCliente, String estadoPedidoC, int totalPedidoC, Date fechaEmision, Date fechaRecibido, Long dni) {
+    public PedidoCliente(Long idPedidoCliente, String estadoPedidoC, Double totalPedidoC, Date fechaEmision, Date fechaRecibido, Long dni) {
         this.idPedidoCliente = idPedidoCliente;
         this.estadoPedidoC = estadoPedidoC;
         this.totalPedidoC = totalPedidoC;
@@ -37,11 +37,11 @@ public class PedidoCliente {
         this.estadoPedidoC = estadoPedidoC;
     }
 
-    public int getTotalPedidoC() {
+    public Double getTotalPedidoC() {
         return totalPedidoC;
     }
 
-    public void setTotalPedidoC(int totalPedidoC) {
+    public void setTotalPedidoC(Double totalPedidoC) {
         this.totalPedidoC = totalPedidoC;
     }
 

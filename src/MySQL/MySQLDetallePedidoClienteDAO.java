@@ -13,7 +13,7 @@ import modelo.DetallePedidoCliente.Id;
 
 public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     
-    final String INSERT = "INSERT INTO detallePedidoCliente (idPedidoCliente, idMaterial, descripcion, subtotalPedC, cantidadPedC) VALUES (?, ?, ?, ?, ?)";
+    final String INSERT = "INSERT INTO `detallepedidocliente` (`idPedidoCliente`, `idMaterial`, `descripcion`, `subtotal`, `cantiadadPedC`) VALUES (?, ?, ?, ?, ?);";
     final String UPDATE = "UPDATE detallePedidoCliente SET idPedidoCliente = ?";
     final String DELETE = "DELETE FROM detallePedidoCliente WHERE idPedidoCliente = ? idMaterial = ?";
     final String GETALL = "SELECT idPedidoCliente, codMaterial, descripcion, subtotalPedC, cantidadPedC";
@@ -33,7 +33,7 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
             stat.setLong(1, a.getId().getIdPedidoCliente());
             stat.setLong(2, a.getId().getIdMaterial());
             stat.setString(3, a.getDescripcion());
-            stat.setFloat(4, a.getSubtotalPedC());
+            stat.setDouble(4, a.getSubtotalPedC());
             stat.setInt(5, a.getCantidadPedC());
             if(stat.executeUpdate() == 0)
             {   
@@ -82,8 +82,8 @@ public class MySQLDetallePedidoClienteDAO implements DetallePedidoClienteDAO{
     }
 
     private DetallePedidoCliente convertir (ResultSet rs) throws SQLException{
-        DetallePedidoCliente detalle = new DetallePedidoCliente(null , rs.getString("descripcion"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
-        detalle.setId(rs.getLong("idPedidoCliente"), rs.getLong("idMaterial"));
+        DetallePedidoCliente detalle = new DetallePedidoCliente(rs.getLong("idPedidoCliente"), rs.getLong("idMaterial") , rs.getString("descripcion"), rs.getFloat("subtotalPedC"), rs.getInt("cantidadPedC"));
+        //detalle.setId(rs.getLong("idPedidoCliente"), rs.getLong("idMaterial"));
         return detalle;
     }
     
