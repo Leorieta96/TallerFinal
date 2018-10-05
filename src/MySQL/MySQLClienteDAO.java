@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import dao.ClienteDAO;
 import dao.DAOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,7 +80,8 @@ public class MySQLClienteDAO implements ClienteDAO {
     }
 
     private Cliente convertir(ResultSet rs) throws SQLException {
-        Cliente cliente = new Cliente(rs.getLong("dni"), rs.getString("nombre"), rs.getInt("telefono"), rs.getString("direccion"), rs.getString("email"));
+        Long dni = (long) rs.getInt("dni");
+        Cliente cliente = new Cliente(dni, rs.getString("nombre"), rs.getInt("telefono"), rs.getString("direccion"), rs.getString("email"));
         return cliente;
     }
 
@@ -150,4 +152,31 @@ public class MySQLClienteDAO implements ClienteDAO {
         }
         return c;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+        public static void main(String[] args) throws SQLException, DAOException{
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/siac", "root", "");
+            ClienteDAO dao = new MySQLClienteDAO(conn);
+            //Catalogo c = new Catalogo(new Date(96,12,03), 215552L);
+            //dao.insertar(c);
+            //dao.eliminar(c);
+            List<Cliente> catalogo = dao.obtenerTodos();
+            for(Cliente a: catalogo){
+                System.out.println(catalogo.toString());
+            }
+        } finally {
+            if(conn != null){
+                conn.close();
+            }
+        }
+        
+    }  
 }

@@ -3,6 +3,7 @@ package MySQL;
 import dao.CatalogoDAO;
 import dao.DAOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -173,7 +174,7 @@ public class MySQLCatalogoDAO implements CatalogoDAO {
 //        try {
 //            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/siac", "root", "");
 //            CatalogoDAO dao = new MySQLCatalogoDAO(conn);
-//            Catalogo c = new Catalogo(new Date(96,12,03), 215552L);
+//            //Catalogo c = new Catalogo(new Date(96,12,03), 215552L);
 //            //dao.insertar(c);
 //            //dao.eliminar(c);
 //            List<Catalogo> catalogo = dao.obtenerTodos();

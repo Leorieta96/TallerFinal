@@ -40,6 +40,7 @@ public class ventVenta extends javax.swing.JFrame {
     private static DAOManager manager;
     Cliente clientePedidoPresupuesto = null;
     List<DetallePresupuesto> listDetalle = new ArrayList<>();
+    List<Cliente> listaCliente = new ArrayList<>();
 
     /**
      * Creates new form vtcompra
@@ -63,12 +64,14 @@ public class ventVenta extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        ingresoDniCliente = new javax.swing.JTextField();
+        botonBuscarCliente = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TablaCliente = new javax.swing.JTable();
         DialogoGenerarPresupuesto = new javax.swing.JDialog();
         DialogoVentaConPresupuesto = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -108,22 +111,27 @@ public class ventVenta extends javax.swing.JFrame {
 
         jLabel4.setText("DNI Cliente:");
 
-        jTextField2.setText("jTextField2");
-
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ingresoDniCliente.setText(" ");
+        ingresoDniCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ingresoDniClienteActionPerformed(evt);
+            }
+        });
+
+        botonBuscarCliente.setText("Buscar");
+        botonBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarClienteActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Nombre:");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText(" ");
 
         jLabel5.setText("Direccion ");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText(" ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,12 +139,11 @@ public class ventVenta extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(ingresoDniCliente))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -145,38 +152,57 @@ public class ventVenta extends javax.swing.JFrame {
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
+                    .addComponent(botonBuscarCliente)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(149, 149, 149))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(ingresoDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscarCliente))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
+
+        TablaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Direccion", "Telefono", "Email"
+            }
+        ));
+        jScrollPane4.setViewportView(TablaCliente);
 
         javax.swing.GroupLayout DialogoVentaSinPresupuestoLayout = new javax.swing.GroupLayout(DialogoVentaSinPresupuesto.getContentPane());
         DialogoVentaSinPresupuesto.getContentPane().setLayout(DialogoVentaSinPresupuestoLayout);
         DialogoVentaSinPresupuestoLayout.setHorizontalGroup(
             DialogoVentaSinPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         DialogoVentaSinPresupuestoLayout.setVerticalGroup(
             DialogoVentaSinPresupuestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(DialogoVentaSinPresupuestoLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DialogoGenerarPresupuestoLayout = new javax.swing.GroupLayout(DialogoGenerarPresupuesto.getContentPane());
@@ -519,6 +545,7 @@ public class ventVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DialogoVentaSinPresupuesto.setTitle("Ventana de Pedido sin presupuesto");
         DialogoVentaSinPresupuesto.setVisible(true);
         DialogoVentaSinPresupuesto.setSize(800, 500);
         this.dispose();
@@ -531,10 +558,63 @@ public class ventVenta extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void botonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarClienteActionPerformed
+        String cliente;
+        cliente = ingresoDniCliente.getText();
+        try {
+            listaCliente = manager.getClienteDAO().obtenerTodos();
+            
+        } catch (DAOException ex) {
+            Logger.getLogger(vtnPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }//GEN-LAST:event_botonBuscarClienteActionPerformed
+
+    private void setTablaClientexDNI(){ 
+        TablaCliente.removeAll();
+        
+        String[] columnas = new String[]{
+            "Nombre",
+            "Direccion",
+            "Telefono",
+            "Email"
+        };
+        
+        final Class[] tiposColumnas = new Class[]{
+           java.lang.String.class,
+           java.lang.String.class,
+           int.class,
+           java.lang.String.class           
+        };
+        
+        Object[][] datos = new Object[listaCliente.size()][4];
+        int i = 0;
+        
+        for(Cliente c : listaCliente) {
+            datos[i][0] = c.getNombre();
+            datos[i][1] = c.getDireccion();
+            datos[i][2] = c.getTelefono();
+            datos[i][3] = c.getEmail();
+            i++;
+        }
+        
+        TablaCliente.setModel(new javax.swing.table.DefaultTableModel(datos, columnas) {
+            Class[] tipos = tiposColumnas;
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                 return tipos[columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+        
+    }
+    
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             vtnPresupuesto ventanaVenta;
@@ -651,6 +731,10 @@ public class ventVenta extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnGenerarPedidoActionPerformed
+
+    private void ingresoDniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoDniClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ingresoDniClienteActionPerformed
 
     private void setTablePedidoPresupuesto() {
         tablePedidoPresupuesto.removeAll();
@@ -778,7 +862,9 @@ public class ventVenta extends javax.swing.JFrame {
     private javax.swing.JDialog DialogoGenerarPresupuesto;
     private javax.swing.JDialog DialogoVentaConPresupuesto;
     private javax.swing.JDialog DialogoVentaSinPresupuesto;
+    private javax.swing.JTable TablaCliente;
     private javax.swing.JTextPane TxtIDPresupuesto;
+    private javax.swing.JButton botonBuscarCliente;
     private javax.swing.JButton btnAtrasVCPO;
     private javax.swing.JButton btnAtrasVPT;
     private javax.swing.JButton btnAtrasVentaPresupuesto;
@@ -788,11 +874,11 @@ public class ventVenta extends javax.swing.JFrame {
     private javax.swing.JDialog dialogFailed;
     private javax.swing.JDialog dialogVentaConPresupuestoOne;
     private javax.swing.JDialog dialogVentaConPresupuestoTwo;
+    private javax.swing.JTextField ingresoDniCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -809,8 +895,8 @@ public class ventVenta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelFailedPresupuesto;
     private javax.swing.JTable tablePedidoPresupuesto;

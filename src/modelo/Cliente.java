@@ -15,6 +15,14 @@ public class Cliente {
         this.email = email;
     }
 
+    public Cliente(String nombre, int telefono, String direccion, String email) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.email = email;
+    }
+    
+
     public Long getdni() {
         return dni;
     }

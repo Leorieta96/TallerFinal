@@ -213,6 +213,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="vtnPresupuesto_tablaMaterialesPedidos"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
